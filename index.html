@@ -235,10 +235,10 @@ body { font-family: system-ui, -apple-system, sans-serif; background:#0d0d1a; co
   <!-- HERO -->
   <div class="hero green" id="hero">
     <div>
-      <div class="lbl">עלות כוללת (מזון + שכר)</div>
+      <div class="lbl">עלות כוללת (מזון + שכר + Wolt)</div>
       <div class="big" id="total-pct">—%</div>
       <div class="sub" id="hero-sub">—</div>
-      <div class="target">🎯 יעד: 45%</div>
+      <div class="target">🎯 יעד: 63%</div>
     </div>
     <div style="font-size:56px" id="hero-emoji">📊</div>
   </div>
@@ -290,7 +290,7 @@ body { font-family: system-ui, -apple-system, sans-serif; background:#0d0d1a; co
     <div class="kpi total">
       <div class="kpi-lbl">עלות כוללת</div>
       <div class="kpi-val" id="k-total-pct">—</div>
-      <div class="kpi-sub">מזון + שכר</div>
+      <div class="kpi-sub">מזון + שכר + Wolt</div>
       <div class="bar"><div class="bf purple" id="bar-total" style="width:0%"></div></div>
     </div>
   </div>
@@ -323,7 +323,7 @@ body { font-family: system-ui, -apple-system, sans-serif; background:#0d0d1a; co
     </div>
     <div class="cr total">
       <div>
-        <div class="l">סה"כ עלות (מזון + שכר)</div>
+        <div class="l">סה"כ עלות (מזון + שכר + Wolt)</div>
       </div>
       <div class="v" id="cr-total">—</div>
     </div>
@@ -358,7 +358,7 @@ body { font-family: system-ui, -apple-system, sans-serif; background:#0d0d1a; co
         <div class="v" id="wolt-commission">—</div>
       </div>
       <div class="cr" style="background:rgba(255,107,53,0.1)">
-        <div><div class="l">% ממכירות כולל</div><div class="src">ברוטו / ברוטו</div></div>
+        <div><div class="l">% Wolt מסה"כ מכירות (ברוטו)</div><div class="src">עמלה ÷ סה"כ מכירות</div></div>
         <div class="v" id="wolt-pct-of-sales" style="color:#ff6b35">—</div>
       </div>
     </div>
@@ -473,12 +473,11 @@ function renderDashboard(d){
 
   // Hero
   const hero = document.getElementById('hero');
-  hero.className = 'hero '+(totalPct<45?'green':totalPct<50?'orange':'red');
+  hero.className = 'hero '+(totalPct<63?'green':totalPct<68?'orange':'red');
   document.getElementById('total-pct').textContent = totalPct.toFixed(1)+'%';
-  document.getElementById('hero-sub').textContent =
-    'מזון '+foodPct.toFixed(1)+'% | שכר '+laborPct.toFixed(1)+'%';
+  document.getElementById('hero-sub').textContent = 'מזון '+foodPct.toFixed(1)+'% | שכר '+laborPct.toFixed(1)+'% | Wolt '+woltPct.toFixed(1)+'%';
   document.getElementById('hero-emoji').textContent =
-    totalPct<45?'🟢':totalPct<50?'🟡':'🔴';
+    totalPct<63?'🟢':totalPct<68?'🟡':'🔴';
 
   // KPI row 1
   document.getElementById('k-sales-vat').textContent = fmt(salesVat);
@@ -510,10 +509,12 @@ function renderDashboard(d){
   // labor shown via editable input
   document.getElementById('cr-food').textContent  = fmtFull(food);
   // wolt shown via editable input
-  document.getElementById('cr-total').textContent = fmtFull(labor+food);
+  document.getElementById('cr-total').textContent = fmtFull(labor+food+woltComm);
   window._currentSalesVat = salesVat;
   window._currentSalesNet = salesNet;
   window._currentFood = food;
+  window._currentLabor = labor;
+  window._currentWolt = woltVat;
 
   // Suppliers
   const grid = document.getElementById('sup-grid');
@@ -552,11 +553,11 @@ function onLaborChange(val){
     document.getElementById('k-total-pct').textContent = tp.toFixed(1)+'%';
     document.getElementById('bar-total').style.width = Math.min(100,tp/60*100)+'%';
     document.getElementById('total-pct').textContent = tp.toFixed(1)+'%';
-    document.getElementById('hero-sub').textContent = 'מזון '+fp.toFixed(1)+'% | שכר '+lp.toFixed(1)+'%';
+    document.getElementById('hero-sub').textContent = 'מזון '+fp.toFixed(1)+'% | שכר '+lp.toFixed(1)+'% | Wolt '+wp.toFixed(1)+'%';
     const hero = document.getElementById('hero');
-    hero.className = 'hero '+(tp<45?'green':tp<50?'orange':'red');
-    document.getElementById('hero-emoji').textContent = tp<45?'🟢':tp<50?'🟡':'🔴';
-    document.getElementById('cr-total').textContent = fmtFull(labor+food);
+    hero.className = 'hero '+(tp<63?'green':tp<68?'orange':'red');
+    document.getElementById('hero-emoji').textContent = tp<63?'🟢':tp<68?'🟡':'🔴';
+    document.getElementById('cr-total').textContent = fmtFull(labor+food+woltComm);
   }
   window._currentLabor = labor;
 }
