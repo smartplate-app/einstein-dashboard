@@ -332,6 +332,10 @@ body { font-family: system-ui, -apple-system, sans-serif; background:#0d0d1a; co
   <!-- WOLT DETAIL -->
   <div class="section" id="wolt-section">
     <div class="s-title">Wolt — פירוט</div>
+    <!-- Wolt formula: sales × 24% ÷ total_sales_vat -->
+    <div style="font-size:10px;color:rgba(255,107,53,0.7);margin-bottom:8px;padding:6px 10px;background:rgba(255,107,53,0.08);border-radius:8px;text-align:center;">
+      נוסחה: מכירות Wolt × 24% ÷ סה"כ מכירות ברוטו = % עמלה
+    </div>
     <div class="wolt-card" style="flex-direction:column;gap:12px;align-items:stretch">
       <div style="display:flex;justify-content:space-between;align-items:center">
         <div>
@@ -461,7 +465,7 @@ function renderDashboard(d){
   const avgDiner  = salesVat / diners;
   const laborPct  = labor / salesNet * 100;
   const foodPct   = food  / salesNet * 100;
-  const woltPct   = woltComm / salesNet * 100;
+  const woltPct   = salesVat > 0 ? woltComm / salesVat * 100 : 0;
   const totalPct  = laborPct + foodPct;
 
   // Header
@@ -561,7 +565,7 @@ function updateWoltDisplay(woltVat, salesVat, salesNet){
   salesVat = salesVat || window._currentSalesVat || 0;
   salesNet = salesNet || window._currentSalesNet || 0;
   const woltComm = Math.round(woltVat * 0.24);
-  const woltPct = salesNet>0 ? woltComm/salesNet*100 : 0;
+  const woltPct = salesVat>0 ? woltComm/salesVat*100 : 0;
   if(woltVat > 0){
     document.getElementById('k-wolt').textContent = fmt(woltComm);
     document.getElementById('k-wolt-pct').textContent = woltPct.toFixed(1)+'% ממכירות';
@@ -569,7 +573,7 @@ function updateWoltDisplay(woltVat, salesVat, salesNet){
     document.getElementById('wolt-sales').textContent = fmtFull(woltVat);
     document.getElementById('wolt-gross').textContent = fmtFull(woltVat);
     document.getElementById('wolt-commission').textContent = fmtFull(woltComm);
-    document.getElementById('wolt-pct-of-sales').textContent = salesVat>0 ? (woltVat/salesVat*100).toFixed(1)+'% מסה"כ מכירות' : '—';
+    document.getElementById('wolt-pct-of-sales').textContent = salesVat>0 ? (woltComm/salesVat*100).toFixed(1)+'% מסה"כ מכירות (עמלה÷ברוטו)' : '—';
   } else {
     document.getElementById('k-wolt').textContent = '—';
     document.getElementById('k-wolt-pct').textContent = 'ממתין לנתון';
