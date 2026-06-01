@@ -1,3 +1,12 @@
+
+  <!-- TABS BAR -->
+  <div class="tabs-bar">
+    <button class="tab-btn" id="tab-may" onclick="switchTab('may')">מאי 2026</button>
+    <button class="tab-btn active" id="tab-jun" onclick="switchTab('jun')">יוני 2026 — MTD</button>
+  </div>
+
+  <!-- MAY TAB -->
+  <div class="tab-pane" id="pane-may">
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
@@ -176,6 +185,26 @@ body { font-family: system-ui, -apple-system, sans-serif; background:#0d0d1a; co
 .editable-input:focus { border-color:#a78bfa; background:rgba(124,58,237,0.15); }
 .editable-input::placeholder { color:rgba(255,255,255,0.2); font-weight:400; font-size:12px; }
 .edit-icon { font-size:10px; color:rgba(124,58,237,0.6); margin-right:4px; }
+
+/* ── TABS ── */
+.tabs-bar {
+  display:flex; gap:6px; padding:12px 12px 0;
+  max-width:700px; margin:0 auto;
+}
+.tab-btn {
+  flex:1; padding:10px 0; border-radius:10px 10px 0 0;
+  border:none; font-size:13px; font-weight:700; cursor:pointer;
+  font-family:inherit; transition:all 0.2s;
+  background:rgba(255,255,255,0.06); color:rgba(255,255,255,0.4);
+  border-bottom:2px solid transparent;
+}
+.tab-btn.active {
+  background:#16162a; color:white;
+  border-bottom:2px solid #a78bfa;
+}
+.tab-pane { display:none; }
+.tab-pane.active { display:block; }
+
 </style>
 </head>
 <body>
@@ -221,7 +250,7 @@ body { font-family: system-ui, -apple-system, sans-serif; background:#0d0d1a; co
     <img class="h-logo-img" src="https://base44.app/api/apps/69b697029d0cd0fecb49189b/files/mp/public/69b697029d0cd0fecb49189b/a23d2203a_6963469c6_smartplate_logo_insta_320x320px.png" alt="Smart Plate" onerror="this.style.display='none'">
     <div>
       <div class="h-branch">Solika <span>Einstein</span></div>
-      <div class="h-month" id="h-month">—</div>
+      <div class="h-month" id="may-h-month">—</div>
     </div>
   </div>
   <button class="sync-btn" id="sync-btn" onclick="triggerSync()">
@@ -233,36 +262,36 @@ body { font-family: system-ui, -apple-system, sans-serif; background:#0d0d1a; co
 <div class="container" id="main" style="display:none">
 
   <!-- HERO -->
-  <div class="hero green" id="hero">
+  <div class="hero green" id="may-hero">
     <div>
       <div class="lbl">עלות כוללת (מזון + שכר + Wolt)</div>
-      <div class="big" id="total-pct">—%</div>
-      <div class="sub" id="hero-sub">—</div>
+      <div class="big" id="may-total-pct">—%</div>
+      <div class="sub" id="may-hero-sub">—</div>
       <div class="target">🎯 יעד: 63%</div>
     </div>
-    <div style="font-size:56px" id="hero-emoji">📊</div>
+    <div style="font-size:56px" id="may-hero-emoji">📊</div>
   </div>
 
   <!-- KPI ROW 1: מכירות -->
   <div class="kpi-grid">
     <div class="kpi sales">
       <div class="kpi-lbl">מכירות ברוטו</div>
-      <div class="kpi-val" id="k-sales-vat">—</div>
+      <div class="kpi-val" id="may-k-sales-vat">—</div>
       <div class="kpi-sub">כולל מע"מ</div>
     </div>
     <div class="kpi net">
       <div class="kpi-lbl">מכירות נטו</div>
-      <div class="kpi-val" id="k-sales-net">—</div>
+      <div class="kpi-val" id="may-k-sales-net">—</div>
       <div class="kpi-sub">ללא מע"מ</div>
     </div>
     <div class="kpi diners">
       <div class="kpi-lbl">סועדים</div>
-      <div class="kpi-val" id="k-diners">—</div>
+      <div class="kpi-val" id="may-k-diners">—</div>
       <div class="kpi-sub" id="k-days">יוני 2026</div>
     </div>
     <div class="kpi avg">
       <div class="kpi-lbl">ממוצע לסועד</div>
-      <div class="kpi-val" id="k-avg">—</div>
+      <div class="kpi-val" id="may-k-avg">—</div>
       <div class="kpi-sub">ברוטו</div>
     </div>
   </div>
@@ -271,27 +300,27 @@ body { font-family: system-ui, -apple-system, sans-serif; background:#0d0d1a; co
   <div class="kpi-grid">
     <div class="kpi labor">
       <div class="kpi-lbl">עלות שכר</div>
-      <div class="kpi-val" id="k-labor">—</div>
-      <div class="kpi-sub" id="k-labor-pct">—</div>
-      <div class="bar"><div class="bf orange" id="bar-labor" style="width:0%"></div></div>
+      <div class="kpi-val" id="may-k-labor">—</div>
+      <div class="kpi-sub" id="may-k-labor-pct">—</div>
+      <div class="bar"><div class="bf orange" id="may-bar-labor" style="width:0%"></div></div>
     </div>
     <div class="kpi food">
       <div class="kpi-lbl">עלות מזון</div>
-      <div class="kpi-val" id="k-food">—</div>
-      <div class="kpi-sub" id="k-food-pct">—</div>
-      <div class="bar"><div class="bf red" id="bar-food" style="width:0%"></div></div>
+      <div class="kpi-val" id="may-k-food">—</div>
+      <div class="kpi-sub" id="may-k-food-pct">—</div>
+      <div class="bar"><div class="bf red" id="may-bar-food" style="width:0%"></div></div>
     </div>
     <div class="kpi wolt">
       <div class="kpi-lbl">Wolt עמלה</div>
-      <div class="kpi-val" id="k-wolt">—</div>
-      <div class="kpi-sub" id="k-wolt-pct">—</div>
-      <div class="bar"><div class="bf wolt" id="bar-wolt" style="width:0%"></div></div>
+      <div class="kpi-val" id="may-k-wolt">—</div>
+      <div class="kpi-sub" id="may-k-wolt-pct">—</div>
+      <div class="bar"><div class="bf wolt" id="may-bar-wolt" style="width:0%"></div></div>
     </div>
     <div class="kpi total">
       <div class="kpi-lbl">עלות כוללת</div>
-      <div class="kpi-val" id="k-total-pct">—</div>
+      <div class="kpi-val" id="may-k-total-pct">—</div>
       <div class="kpi-sub">מזון + שכר + Wolt</div>
-      <div class="bar"><div class="bf purple" id="bar-total" style="width:0%"></div></div>
+      <div class="bar"><div class="bf purple" id="may-bar-total" style="width:0%"></div></div>
     </div>
   </div>
 
@@ -303,34 +332,34 @@ body { font-family: system-ui, -apple-system, sans-serif; background:#0d0d1a; co
         <div class="lbl-main">✏️ עלות שכר</div>
         <div class="lbl-src">Tabit Chef — עריכה ידנית</div>
       </div>
-      <input class="editable-input" id="labor-input" type="number" placeholder="הכנס סכום" 
-             oninput="onLaborChange(this.value)" />
+      <input class="editable-input" id="may-labor-input" type="number" placeholder="הכנס סכום" 
+             oninput="onLaborChange(this.value,'may')" />
     </div>
     <div class="cr">
       <div>
         <div class="l">עלות מזון (נטו, ללא מע"מ)</div>
         <div class="src">Zester</div>
       </div>
-      <div class="v" id="cr-food">—</div>
+      <div class="v" id="may-cr-food">—</div>
     </div>
-    <div class="edit-row" id="wolt-edit-row">
+    <div class="edit-row" id="may-wolt-edit-row">
       <div class="l">
         <div class="lbl-main">✏️ מכירות Wolt (ברוטו)</div>
         <div class="lbl-src">Tabit Chef — Tender Report — עריכה ידנית</div>
       </div>
-      <input class="editable-input" id="wolt-input" type="number" placeholder="מכירות Wolt" 
-             oninput="onWoltChange(this.value)" />
+      <input class="editable-input" id="may-wolt-input" type="number" placeholder="מכירות Wolt" 
+             oninput="onWoltChange(this.value,'may')" />
     </div>
     <div class="cr total">
       <div>
         <div class="l">סה"כ עלות (מזון + שכר + Wolt)</div>
       </div>
-      <div class="v" id="cr-total">—</div>
+      <div class="v" id="may-cr-total">—</div>
     </div>
   </div>
 
   <!-- WOLT DETAIL -->
-  <div class="section" id="wolt-section">
+  <div class="section" id="may-wolt-section">
     <div class="s-title">Wolt — פירוט</div>
     <!-- Wolt formula: sales × 24% ÷ total_sales_vat -->
     <div style="font-size:10px;color:rgba(255,107,53,0.7);margin-bottom:8px;padding:6px 10px;background:rgba(255,107,53,0.08);border-radius:8px;text-align:center;">
@@ -342,68 +371,204 @@ body { font-family: system-ui, -apple-system, sans-serif; background:#0d0d1a; co
           <div class="wl">✏️ הכנס מכירות Wolt ברוטו</div>
           <div class="ws">Tabit Chef — Tender Report</div>
         </div>
-        <div class="wv" id="wolt-sales" style="font-size:14px">—</div>
+        <div class="wv" id="may-wolt-sales" style="font-size:14px">—</div>
       </div>
-      <input class="editable-input" id="wolt-input-detail" type="number" placeholder="הכנס סכום מכירות Wolt ברוטו"
+      <input class="editable-input" id="may-wolt-input-detail" type="number" placeholder="הכנס סכום מכירות Wolt ברוטו"
              style="width:100%;font-size:16px;padding:10px 14px"
-             oninput="document.getElementById('wolt-input').value=this.value; onWoltChange(this.value)" />
+             oninput="document.getElementById('may-wolt-input').value=this.value; onWoltChange(this.value,'may')" />
     </div>
     <div style="margin-top:10px">
       <div class="cr">
         <div><div class="l">מכירות Wolt ברוטו</div><div class="src">הוכנס ידנית</div></div>
-        <div class="v" id="wolt-gross">—</div>
+        <div class="v" id="may-wolt-gross">—</div>
       </div>
       <div class="cr">
         <div><div class="l">עמלת Wolt (24%)</div><div class="src">מחושב אוטומטית</div></div>
-        <div class="v" id="wolt-commission">—</div>
+        <div class="v" id="may-wolt-commission">—</div>
       </div>
       <div class="cr" style="background:rgba(255,107,53,0.1)">
         <div><div class="l">% Wolt מסה"כ מכירות (ברוטו)</div><div class="src">עמלה ÷ סה"כ מכירות</div></div>
-        <div class="v" id="wolt-pct-of-sales" style="color:#ff6b35">—</div>
+        <div class="v" id="may-wolt-pct-of-sales" style="color:#ff6b35">—</div>
       </div>
     </div>
   </div>
 
   <!-- FOOD SUPPLIERS -->
   <div class="section">
-    <div class="s-title">ספקי מזון — <span id="sup-month-lbl">יוני 2026</span></div>
-    <div class="sup-grid" id="sup-grid">
+    <div class="s-title">ספקי מזון — <span id="may-sup-month-lbl">יוני 2026</span></div>
+    <div class="sup-grid" id="may-sup-grid">
       <div class="no-data" style="grid-column:1/-1;color:rgba(255,255,255,0.2);font-size:12px;padding:20px 0">טוען ספקים...</div>
     </div>
   </div>
 
   <!-- LAST UPDATE -->
   <div class="footer">
-    <div class="last-upd" id="last-upd">—</div>
+    <div class="last-upd" id="may-last-upd">—</div>
+  </div>
+
+
+
+  <!-- JUNE MTD TAB -->
+  <div class="tab-pane active" id="pane-jun">
+    <div class="container">
+
+      <div class="hero green" id="jun-hero" style="margin-top:12px">
+        <div>
+          <div class="lbl">עלות כוללת (מזון + שכר + Wolt)</div>
+          <div class="big" id="jun-total-pct">—</div>
+          <div class="sub" id="jun-hero-sub">ממתין לנתוני יוני</div>
+          <div class="target">🎯 יעד: 63%</div>
+        </div>
+        <div style="font-size:36px" id="jun-hero-emoji">⏳</div>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi sales">
+          <div class="kpi-lbl">מכירות ברוטו</div>
+          <div class="kpi-val" id="jun-k-sales-vat">—</div>
+          <div class="kpi-sub">כולל מע"מ</div>
+        </div>
+        <div class="kpi net">
+          <div class="kpi-lbl">מכירות נטו</div>
+          <div class="kpi-val" id="jun-k-sales-net">—</div>
+          <div class="kpi-sub">ללא מע"מ</div>
+        </div>
+        <div class="kpi diners">
+          <div class="kpi-lbl">ימי פעילות MTD</div>
+          <div class="kpi-val" id="jun-k-days">—</div>
+          <div class="kpi-sub">יוני 2026</div>
+        </div>
+        <div class="kpi avg">
+          <div class="kpi-lbl">ממוצע ליום</div>
+          <div class="kpi-val" id="jun-k-avg">—</div>
+          <div class="kpi-sub">מכירות ברוטו</div>
+        </div>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi labor">
+          <div class="kpi-lbl">עלות שכר</div>
+          <div class="kpi-val" id="jun-k-labor">—</div>
+          <div class="kpi-sub" id="jun-k-labor-pct">ממתין</div>
+          <div class="bar"><div class="bf orange" id="jun-bar-labor" style="width:0%"></div></div>
+        </div>
+        <div class="kpi food">
+          <div class="kpi-lbl">עלות מזון</div>
+          <div class="kpi-val" id="jun-k-food">—</div>
+          <div class="kpi-sub" id="jun-k-food-pct">ממתין</div>
+          <div class="bar"><div class="bf red" id="jun-bar-food" style="width:0%"></div></div>
+        </div>
+        <div class="kpi wolt">
+          <div class="kpi-lbl">Wolt עמלה</div>
+          <div class="kpi-val" id="jun-k-wolt">—</div>
+          <div class="kpi-sub" id="jun-k-wolt-pct">ממתין</div>
+          <div class="bar"><div class="bf wolt" id="jun-bar-wolt" style="width:0%"></div></div>
+        </div>
+        <div class="kpi total">
+          <div class="kpi-lbl">עלות כוללת</div>
+          <div class="kpi-val" id="jun-k-total-pct">—</div>
+          <div class="kpi-sub">מזון + שכר + Wolt</div>
+          <div class="bar"><div class="bf purple" id="jun-bar-total" style="width:0%"></div></div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="s-title">פירוט עלויות — יוני MTD</div>
+        <div class="edit-row">
+          <div class="l">
+            <div class="lbl-main">✏️ עלות שכר</div>
+            <div class="lbl-src">Tabit Chef API — אוטומטי / עריכה ידנית</div>
+          </div>
+          <input class="editable-input" id="jun-labor-input" type="number" placeholder="הכנס סכום"
+                 oninput="onLaborChange(this.value,'jun')" />
+        </div>
+        <div class="cr">
+          <div>
+            <div class="l">עלות מזון (נטו)</div>
+            <div class="src">Zester — יוני MTD</div>
+          </div>
+          <div class="v" id="jun-cr-food">—</div>
+        </div>
+        <div class="edit-row">
+          <div class="l">
+            <div class="lbl-main">✏️ מכירות Wolt (ברוטו)</div>
+            <div class="lbl-src">Tabit API — byTender accountName=WOLT</div>
+          </div>
+          <input class="editable-input" id="jun-wolt-input" type="number" placeholder="מכירות Wolt"
+                 oninput="onWoltChange(this.value,'jun')" />
+        </div>
+        <div class="cr total">
+          <div><div class="l">סה"כ עלות (מזון + שכר + Wolt)</div></div>
+          <div class="v" id="jun-cr-total">—</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="s-title">Wolt — פירוט יוני</div>
+        <div style="font-size:10px;color:rgba(255,107,53,0.7);margin-bottom:8px;padding:6px 10px;background:rgba(255,107,53,0.08);border-radius:8px;text-align:center;">
+          נוסחה: מכירות Wolt × 24% ÷ סה"כ מכירות ברוטו = % עמלה
+        </div>
+        <div class="wolt-card" style="flex-direction:column;gap:10px;align-items:stretch">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div><div class="wl">מכירות Wolt ברוטו (MTD)</div><div class="ws">Tabit API</div></div>
+            <div class="wv" id="jun-wolt-sales" style="font-size:14px">—</div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div><div class="wl">עמלה (×24%)</div></div>
+            <div class="wv" id="jun-wolt-commission" style="font-size:14px">—</div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div><div class="wl">% מסה"כ מכירות</div></div>
+            <div class="wv" id="jun-wolt-pct-of-sales" style="font-size:16px;color:#ff6b35">—</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section" style="background:rgba(167,139,250,0.07);border:1px dashed rgba(167,139,250,0.2)">
+        <div style="font-size:11px;color:rgba(255,255,255,0.4);text-align:center;line-height:1.8">
+          📅 יוני 2026 — נתונים מצטברים<br>
+          מתעדכן אוטומטית כל בוקר מה-Tabit API<br>
+          <span id="jun-last-upd" style="color:rgba(255,255,255,0.2)">—</span>
+        </div>
+      </div>
+
+      <div class="footer"></div>
+    </div>
   </div>
 
 </div><!-- /main -->
 
 <script>
-const CODES = ['EINSTEIN2026','SMARTPLATE','SOLIKA2026'];
 const ROSA_URL = 'https://rosa-6d8ebb9e.base44.app/api/functions';
+const CODES = ['SOLIKA2026','EINSTEIN','SMARTPLATE'];
 
-// Supplier data from Zester May 2026 (Einstein account — benny.ebrani)
-const SUPPLIERS = [
-  { name:'חמישה קצבים', net:47856.20 },
-  { name:'מ.ר כלים', net:36561.08 },
-  { name:'מאסטרפוד', net:27993.73 },
-  { name:'י.שבי שיווק', net:21804.18 },
-  { name:'דים סאם', net:9571.39 },
-  { name:'ג.י אשכול', net:8726.40 },
-  { name:'מילועוף', net:7234.55 },
-  { name:'אהרון שיווק', net:6821.30 },
-  { name:'חמים וטעים', net:6104.20 },
-  { name:'ב.א שיווק', net:3360.87 },
-  { name:'זטופאק לחם', net:3102.45 },
-  { name:'עונות ישראל', net:2844.67 },
-  { name:'אחרים', net:15958.78 }
+// Supplier fallback for May 2026
+const MAY_SUPPLIERS = [
+  { name:'חמישה קצבים', net:47856 },{ name:'מאסטרפוד', net:21477 },
+  { name:'מילועוף', net:19423 },{ name:'מ.ר כלים', net:15877 },
+  { name:'אחים כהן', net:8543 },{ name:'י.שבי שיווק', net:8191 },
+  { name:'אהרון שיווק', net:7503 },{ name:'זטופאק לחם', net:6079 },
+  { name:'א.ביסקוטי', net:6000 },{ name:'חמים וטעים', net:5082 }
 ];
 
-function fmt(n){ return n>=1000 ? '₪'+(n/1000).toFixed(1)+'K' : '₪'+Math.round(n).toLocaleString('he-IL'); }
+// Per-tab state
+const STATE = {
+  may:{ salesVat:0,salesNet:0,labor:0,food:0,wolt:0 },
+  jun:{ salesVat:0,salesNet:0,labor:0,food:0,wolt:0 }
+};
+
+let activeTab = 'jun';
+
+function fmt(n){ return n>=1000?'₪'+(n/1000).toFixed(1)+'K':'₪'+Math.round(n).toLocaleString('he-IL'); }
 function fmtFull(n){ return '₪'+Math.round(n).toLocaleString('he-IL'); }
-function pct(v,t){ return t>0?(v/t*100).toFixed(1)+'%':'—'; }
-function clamp(v,max){ return Math.min(100,v/max*100)+'%'; }
+
+function switchTab(tab){
+  activeTab = tab;
+  document.getElementById('pane-may').classList.toggle('active', tab==='may');
+  document.getElementById('pane-jun').classList.toggle('active', tab==='jun');
+  document.getElementById('tab-may').classList.toggle('active', tab==='may');
+  document.getElementById('tab-jun').classList.toggle('active', tab==='jun');
+}
 
 function checkPW(){
   const v = document.getElementById('pw-input').value.trim().toUpperCase();
@@ -418,16 +583,13 @@ function checkPW(){
 
 function showLoading(txt){
   document.getElementById('loading').style.display='flex';
-  document.getElementById('main').style.display='none';
   document.getElementById('loading-text').textContent=txt||'טוען נתונים...';
 }
 function hideLoading(){
   document.getElementById('loading').style.display='none';
-  document.getElementById('main').style.display='block';
 }
-
 function showSyncError(msg){
-  document.getElementById('modal-msg').textContent = msg || 'לא ניתן לטעון נתונים.';
+  document.getElementById('modal-msg').textContent = msg||'לא ניתן לטעון נתונים.';
   document.getElementById('sync-modal').classList.add('show');
 }
 
@@ -438,185 +600,189 @@ async function loadDashboard(){
     if(!resp.ok) throw new Error('HTTP '+resp.status);
     const raw = await resp.json();
     const d = raw.data || raw;
-    renderDashboard(d);
+
+    // --- MAY 2026 data ---
+    const may = {
+      salesVat : d.einstein_sales_vat   || 0,
+      salesNet : d.einstein_sales_net   || 0,
+      labor    : d.einstein_labor       || 0,
+      food     : d.einstein_food        || 0,
+      wolt     : d.einstein_wolt_vat    || 0,
+      vendors  : (() => { try { return typeof d.einstein_vendors==='string' ? JSON.parse(d.einstein_vendors) : (d.einstein_vendors||[]); } catch(e){ return []; } })(),
+      lastUpd  : d.last_updated         || null
+    };
+
+    // --- JUNE 2026 — fetch live from Tabit API directly ---
+    let jun = { salesVat:0, salesNet:0, labor:0, food:0, wolt:0, days:0, lastUpd:null };
+    try {
+      const junResp = await fetch(ROSA_URL+'/solikaSync?month=2026-06');
+      if(junResp.ok){
+        const junRaw = await junResp.json();
+        const jd = junRaw.data || junRaw;
+        jun.salesVat = jd.einstein_sales_vat || 0;
+        jun.salesNet = jd.einstein_sales_net || 0;
+        jun.labor    = jd.einstein_labor     || 0;
+        jun.food     = jd.einstein_food      || 0;
+        jun.wolt     = jd.einstein_wolt_vat  || 0;
+        jun.lastUpd  = jd.last_updated       || null;
+      }
+    } catch(e){ /* june data not yet available */ }
+
+    renderMay(may);
+    renderJune(jun);
+    hideLoading();
   } catch(e){
     hideLoading();
-    showSyncError('שגיאה בטעינת נתונים: '+e.message);
-    // Render with static fallback
-    renderDashboard({});
+    showSyncError('שגיאה: '+e.message);
+    renderMay({});
+    renderJune({});
   }
 }
 
-function renderDashboard(d){
-  // Determine current month label
-  const now = new Date();
-  const monthLabel = now.toLocaleString('he-IL', {month:'long', year:'numeric'});
-  
-  const salesVat  = d.einstein_sales_vat  || 0;
-  const salesNet  = d.einstein_sales_net  || 0;
-  const labor     = d.einstein_labor      || 0;
-  const food      = d.einstein_food       || 0;
-  const woltVat   = d.einstein_wolt_vat   || 0;
-  const vendors   = d.einstein_vendors    || [];
-  const lastUpd   = d.last_updated        || null;
+function calcAndRender(prefix, s){
+  const { salesVat, salesNet, labor, food, wolt } = s;
+  const woltComm = Math.round(wolt * 0.24);
+  const lp = salesNet > 0 ? labor/salesNet*100 : 0;
+  const fp = salesNet > 0 ? food/salesNet*100   : 0;
+  const wp = salesNet > 0 ? woltComm/salesNet*100 : 0;
+  const tp = lp + fp + wp;
 
-  const woltComm  = Math.round(woltVat * 0.24);
-  const diners    = d.einstein_diners || 0;
-  const avgDiner  = salesVat / diners;
-  const laborPct  = labor / salesNet * 100;
-  const foodPct   = food  / salesNet * 100;
-  const woltPct   = salesVat > 0 ? woltComm / salesVat * 100 : 0;
-  const totalPct  = laborPct + foodPct;
-
-  // Header
-  document.getElementById('h-month').textContent = monthLabel+' — MTD';
+  const pfx = prefix+'-';
 
   // Hero
-  const hero = document.getElementById('hero');
-  hero.className = 'hero '+(totalPct<63?'green':totalPct<68?'orange':'red');
-  document.getElementById('total-pct').textContent = totalPct.toFixed(1)+'%';
-  document.getElementById('hero-sub').textContent = 'מזון '+foodPct.toFixed(1)+'% | שכר '+laborPct.toFixed(1)+'% | Wolt '+woltPct.toFixed(1)+'%';
-  document.getElementById('hero-emoji').textContent =
-    totalPct<63?'🟢':totalPct<68?'🟡':'🔴';
+  const heroEl = document.getElementById(prefix+'-hero');
+  if(heroEl) heroEl.className = 'hero '+(tp>0?(tp<63?'green':tp<68?'orange':'red'):'green');
+  el(pfx+'total-pct', tp>0 ? tp.toFixed(1)+'%' : '—');
+  el(pfx+'hero-sub', salesNet>0 ? 'מזון '+fp.toFixed(1)+'% | שכר '+lp.toFixed(1)+'% | Wolt '+wp.toFixed(1)+'%' : 'ממתין לנתונים');
+  const emojiEl = document.getElementById(pfx+'hero-emoji');
+  if(emojiEl) emojiEl.textContent = tp>0?(tp<63?'🟢':tp<68?'🟡':'🔴'):'⏳';
 
-  // KPI row 1
-  document.getElementById('k-sales-vat').textContent = fmt(salesVat);
-  document.getElementById('k-sales-net').textContent = fmt(salesNet);
-  document.getElementById('k-diners').textContent    = diners.toLocaleString('he-IL');
-  document.getElementById('k-avg').textContent       = '₪'+Math.round(avgDiner);
+  // KPIs
+  el(pfx+'k-sales-vat', salesVat>0 ? fmt(salesVat) : '—');
+  el(pfx+'k-sales-net', salesNet>0 ? fmt(salesNet)  : '—');
 
-  // KPI row 2
-  document.getElementById('k-labor').textContent     = labor>0 ? fmt(labor) : '—';
-  document.getElementById('k-labor-pct').textContent = labor>0 ? laborPct.toFixed(1)+'% ממכירות' : 'הכנס ידנית';
-  document.getElementById('bar-labor').style.width   = Math.min(100,laborPct/50*100)+'%';
-  if(labor>0) document.getElementById('labor-input').value = labor;
+  // Labor
+  el(pfx+'k-labor',     labor>0 ? fmt(labor) : '—');
+  el(pfx+'k-labor-pct', labor>0 ? lp.toFixed(1)+'% ממכירות' : 'ממתין');
+  bar(pfx+'bar-labor', lp/50);
 
-  document.getElementById('k-food').textContent      = fmt(food);
-  document.getElementById('k-food-pct').textContent  = foodPct.toFixed(1)+'% ממכירות';
-  document.getElementById('bar-food').style.width    = Math.min(100,foodPct/50*100)+'%';
+  // Food
+  el(pfx+'k-food',     food>0 ? fmt(food) : '—');
+  el(pfx+'k-food-pct', food>0 ? fp.toFixed(1)+'% ממכירות' : 'ממתין');
+  bar(pfx+'bar-food', fp/50);
 
-  // Wolt — populate input if we have data
-  if(woltVat > 0){
-    document.getElementById('wolt-input').value = woltVat;
-    document.getElementById('wolt-input-detail').value = woltVat;
-  }
-  updateWoltDisplay(woltVat, salesVat, salesNet);
+  // Wolt
+  el(pfx+'k-wolt',     woltComm>0 ? fmt(woltComm) : '—');
+  el(pfx+'k-wolt-pct', woltComm>0 ? wp.toFixed(1)+'% ממכירות' : 'ממתין');
+  bar(pfx+'bar-wolt', wp/15);
 
-  document.getElementById('k-total-pct').textContent = totalPct.toFixed(1)+'%';
-  document.getElementById('bar-total').style.width   = Math.min(100,totalPct/60*100)+'%';
+  // Total
+  el(pfx+'k-total-pct', tp>0 ? tp.toFixed(1)+'%' : '—');
+  bar(pfx+'bar-total', tp/80);
 
   // Cost breakdown
-  // labor shown via editable input
-  document.getElementById('cr-food').textContent  = fmtFull(food);
-  // wolt shown via editable input
-  document.getElementById('cr-total').textContent = fmtFull(labor+food+woltComm);
-  window._currentSalesVat = salesVat;
-  window._currentSalesNet = salesNet;
-  window._currentFood = food;
-  window._currentLabor = labor;
-  window._currentWolt = woltVat;
+  el(pfx+'cr-food',  food>0 ? fmtFull(food) : '—');
+  el(pfx+'cr-total', (labor+food+woltComm)>0 ? fmtFull(labor+food+woltComm) : '—');
 
-  // Suppliers
-  const grid = document.getElementById('sup-grid');
-  const supList = (vendors && vendors.length) ? vendors : SUPPLIERS;
-  grid.innerHTML = supList.map(s=>`
-    <div class="sup-box">
-      <div class="sl">${s.name}</div>
-      <div class="sv">₪${Math.round(s.net||s.amount||0).toLocaleString('he-IL')}</div>
-      <div class="sc">${((s.net||s.amount||0)/food*100).toFixed(1)}% מהמזון</div>
-    </div>
-  `).join('');
+  // Wolt detail
+  el(pfx+'wolt-sales',       wolt>0 ? fmtFull(wolt) : '—');
+  el(pfx+'wolt-commission',  woltComm>0 ? fmtFull(woltComm) : '—');
+  el(pfx+'wolt-pct-of-sales', (woltComm>0&&salesVat>0) ? (woltComm/salesVat*100).toFixed(1)+'% ממכירות' : '—');
 
-  // Last updated
-  if(lastUpd){
-    const d2 = new Date(lastUpd);
-    document.getElementById('last-upd').textContent = 'עדכון אחרון: '+d2.toLocaleString('he-IL');
-  } else {
-    document.getElementById('last-upd').textContent = 'נתונים ידניים — '+monthLabel;
+  // Inputs pre-fill
+  setInput(prefix+'-labor-input', labor);
+  setInput(prefix+'-wolt-input', wolt);
+
+  STATE[prefix.replace('jun','jun').replace('may','may')] = s;
+}
+
+function renderMay(d){
+  const s = {
+    salesVat: d.salesVat||d.einstein_sales_vat||0,
+    salesNet: d.salesNet||d.einstein_sales_net||0,
+    labor:    d.labor||d.einstein_labor||0,
+    food:     d.food||d.einstein_food||0,
+    wolt:     d.wolt||d.einstein_wolt_vat||0,
+    vendors:  d.vendors||MAY_SUPPLIERS
+  };
+  STATE.may = s;
+  calcAndRender('may', s);
+
+  // Header for may pane
+  el('may-h-month', 'מאי 2026');
+  el('may-sup-month-lbl', 'מאי 2026');
+
+  // Suppliers grid
+  const grid = document.getElementById('may-sup-grid');
+  if(grid){
+    const list = (s.vendors&&s.vendors.length) ? s.vendors : MAY_SUPPLIERS;
+    grid.innerHTML = list.map(v=>`
+      <div class="sup-box">
+        <div class="sl">${v.name}</div>
+        <div class="sv">₪${Math.round(v.net||0).toLocaleString('he-IL')}</div>
+        <div class="sc">${s.food>0?((v.net||0)/s.food*100).toFixed(1)+'% מהמזון':'—'}</div>
+      </div>`).join('');
   }
 
-  hideLoading();
+  if(d.lastUpd||d.last_updated){
+    const dt = new Date(d.lastUpd||d.last_updated);
+    el('may-last-upd','עדכון אחרון: '+dt.toLocaleString('he-IL'));
+  }
+}
+
+function renderJune(d){
+  const s = {
+    salesVat: d.salesVat||0,
+    salesNet: d.salesNet||0,
+    labor:    d.labor||0,
+    food:     d.food||0,
+    wolt:     d.wolt||0
+  };
+  STATE.jun = s;
+  calcAndRender('jun', s);
+
+  el('jun-k-days', d.days||'—');
+  if(d.lastUpd){
+    const dt = new Date(d.lastUpd);
+    el('jun-last-upd','עדכון אחרון: '+dt.toLocaleString('he-IL'));
+  } else {
+    el('jun-last-upd','נתונים יתעדכנו מחר בבוקר לאחר סגירת ה-Z');
+  }
 }
 
 // ── EDITABLE HANDLERS ──
-function onLaborChange(val){
-  const labor = parseFloat(val) || 0;
-  const salesNet = window._currentSalesNet || 0;
-  const food = window._currentFood || 0;
-  if(salesNet > 0){
-    const lp = labor/salesNet*100;
-    const fp = food/salesNet*100;
-    const tp = lp+fp;
-    document.getElementById('k-labor').textContent = labor>0 ? fmt(labor) : '—';
-    document.getElementById('k-labor-pct').textContent = labor>0 ? lp.toFixed(1)+'% ממכירות' : 'הכנס ידנית';
-    document.getElementById('bar-labor').style.width = Math.min(100,lp/50*100)+'%';
-    document.getElementById('k-total-pct').textContent = tp.toFixed(1)+'%';
-    document.getElementById('bar-total').style.width = Math.min(100,tp/60*100)+'%';
-    document.getElementById('total-pct').textContent = tp.toFixed(1)+'%';
-    document.getElementById('hero-sub').textContent = 'מזון '+fp.toFixed(1)+'% | שכר '+lp.toFixed(1)+'% | Wolt '+wp.toFixed(1)+'%';
-    const hero = document.getElementById('hero');
-    hero.className = 'hero '+(tp<63?'green':tp<68?'orange':'red');
-    document.getElementById('hero-emoji').textContent = tp<63?'🟢':tp<68?'🟡':'🔴';
-    document.getElementById('cr-total').textContent = fmtFull(labor+food+woltComm);
-  }
-  window._currentLabor = labor;
+function onLaborChange(val, tab){
+  tab = tab || activeTab;
+  const labor = parseFloat(val)||0;
+  STATE[tab].labor = labor;
+  calcAndRender(tab, STATE[tab]);
 }
 
-function updateWoltDisplay(woltVat, salesVat, salesNet){
-  salesVat = salesVat || window._currentSalesVat || 0;
-  salesNet = salesNet || window._currentSalesNet || 0;
-  const woltComm = Math.round(woltVat * 0.24);
-  const woltPct = salesVat>0 ? woltComm/salesVat*100 : 0;
-  if(woltVat > 0){
-    document.getElementById('k-wolt').textContent = fmt(woltComm);
-    document.getElementById('k-wolt-pct').textContent = woltPct.toFixed(1)+'% ממכירות';
-    document.getElementById('bar-wolt').style.width = Math.min(100,woltPct/20*100)+'%';
-    document.getElementById('wolt-sales').textContent = fmtFull(woltVat);
-    document.getElementById('wolt-gross').textContent = fmtFull(woltVat);
-    document.getElementById('wolt-commission').textContent = fmtFull(woltComm);
-    document.getElementById('wolt-pct-of-sales').textContent = salesVat>0 ? (woltComm/salesVat*100).toFixed(1)+'% מסה"כ מכירות (עמלה÷ברוטו)' : '—';
-  } else {
-    document.getElementById('k-wolt').textContent = '—';
-    document.getElementById('k-wolt-pct').textContent = 'ממתין לנתון';
-    document.getElementById('wolt-sales').textContent = '—';
-    document.getElementById('wolt-gross').textContent = '—';
-    document.getElementById('wolt-commission').textContent = '—';
-    document.getElementById('wolt-pct-of-sales').textContent = '—';
-  }
+function onWoltChange(val, tab){
+  tab = tab || activeTab;
+  const wolt = parseFloat(val)||0;
+  STATE[tab].wolt = wolt;
+  // sync wolt inputs
+  setInput(tab+'-wolt-input', wolt||'');
+  calcAndRender(tab, STATE[tab]);
 }
 
-function onWoltChange(val){
-  const woltVat = parseFloat(val) || 0;
-  // sync both inputs
-  const inp1 = document.getElementById('wolt-input');
-  const inp2 = document.getElementById('wolt-input-detail');
-  if(inp1 && inp1.value !== String(woltVat)) inp1.value = woltVat || '';
-  if(inp2 && inp2.value !== String(woltVat)) inp2.value = woltVat || '';
-  updateWoltDisplay(woltVat);
-}
+function el(id, val){ const e=document.getElementById(id); if(e) e.textContent=val; }
+function bar(id, ratio){ const e=document.getElementById(id); if(e) e.style.width=Math.min(100,Math.max(0,ratio*100))+'%'; }
+function setInput(id, val){ const e=document.getElementById(id); if(e && val) e.value=val; }
 
 async function triggerSync(){
-  const btn = document.getElementById('sync-btn');
-  btn.disabled = true;
-  btn.innerHTML = '<span>⏳</span> מסנכרן...';
+  const btn=document.getElementById('sync-btn');
+  btn.disabled=true; btn.innerHTML='<span>⏳</span> מסנכרן...';
   document.getElementById('sync-modal').classList.remove('show');
   try {
-    await fetch(ROSA_URL+'/solikaTriggerSync', {method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});
+    await fetch(ROSA_URL+'/solikaTriggerSync',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});
     setTimeout(()=>loadDashboard(), 3000);
-  } catch(e){
-    btn.disabled=false;
-    btn.innerHTML='<span>🔄</span> סנכרן עכשיו';
-  }
-  setTimeout(()=>{
-    btn.disabled=false;
-    btn.innerHTML='<span>🔄</span> סנכרן עכשיו';
-  }, 8000);
+  } catch(e){}
+  setTimeout(()=>{ btn.disabled=false; btn.innerHTML='<span>🔄</span> סנכרן עכשיו'; }, 8000);
 }
 
-// Enter key on paywall
-document.getElementById('pw-input').addEventListener('keydown', e=>{
-  if(e.key==='Enter') checkPW();
-});
+document.getElementById('pw-input').addEventListener('keydown',e=>{ if(e.key==='Enter') checkPW(); });
 </script>
 </body>
 </html>
