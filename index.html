@@ -161,6 +161,21 @@ body { font-family: system-ui, -apple-system, sans-serif; background:#0d0d1a; co
 .modal-btns { display:flex; gap:10px; }
 .modal-sync { flex:1; padding:11px; border-radius:10px; border:none; background:linear-gradient(135deg,#4f1faa,#7c3aed); color:white; font-size:13px; font-weight:700; cursor:pointer; font-family:inherit; }
 .modal-dismiss { flex:1; padding:11px; border-radius:10px; border:1px solid rgba(255,255,255,0.15); background:transparent; color:rgba(255,255,255,0.5); font-size:12px; cursor:pointer; font-family:inherit; }
+
+/* ── EDITABLE FIELD ── */
+.edit-row { display:flex; align-items:center; gap:8px; padding:10px 12px; border-radius:8px; margin-bottom:6px; background:rgba(255,255,255,0.04); }
+.edit-row .l { flex:1; }
+.edit-row .l .lbl-main { font-size:12px; color:rgba(255,255,255,0.6); }
+.edit-row .l .lbl-src { font-size:9px; color:rgba(255,255,255,0.25); margin-top:1px; }
+.editable-input {
+  background:rgba(255,255,255,0.08); border:1.5px solid rgba(124,58,237,0.4);
+  border-radius:8px; color:white; font-size:14px; font-weight:800;
+  padding:6px 10px; width:120px; text-align:left; font-family:inherit;
+  outline:none; direction:ltr;
+}
+.editable-input:focus { border-color:#a78bfa; background:rgba(124,58,237,0.15); }
+.editable-input::placeholder { color:rgba(255,255,255,0.2); font-weight:400; font-size:12px; }
+.edit-icon { font-size:10px; color:rgba(124,58,237,0.6); margin-right:4px; }
 </style>
 </head>
 <body>
@@ -243,7 +258,7 @@ body { font-family: system-ui, -apple-system, sans-serif; background:#0d0d1a; co
     <div class="kpi diners">
       <div class="kpi-lbl">סועדים</div>
       <div class="kpi-val" id="k-diners">—</div>
-      <div class="kpi-sub" id="k-days">מאי 2026</div>
+      <div class="kpi-sub" id="k-days">יוני 2026</div>
     </div>
     <div class="kpi avg">
       <div class="kpi-lbl">ממוצע לסועד</div>
@@ -283,12 +298,13 @@ body { font-family: system-ui, -apple-system, sans-serif; background:#0d0d1a; co
   <!-- COST BREAKDOWN -->
   <div class="section">
     <div class="s-title">פירוט עלויות</div>
-    <div class="cr">
-      <div>
-        <div class="l">עלות שכר</div>
-        <div class="src">Tabit Chef</div>
+    <div class="edit-row" id="labor-edit-row">
+      <div class="l">
+        <div class="lbl-main">✏️ עלות שכר</div>
+        <div class="lbl-src">Tabit Chef — עריכה ידנית</div>
       </div>
-      <div class="v" id="cr-labor">—</div>
+      <input class="editable-input" id="labor-input" type="number" placeholder="הכנס סכום" 
+             oninput="onLaborChange(this.value)" />
     </div>
     <div class="cr">
       <div>
@@ -297,12 +313,13 @@ body { font-family: system-ui, -apple-system, sans-serif; background:#0d0d1a; co
       </div>
       <div class="v" id="cr-food">—</div>
     </div>
-    <div class="cr">
-      <div>
-        <div class="l">Wolt — עמלה 24%</div>
-        <div class="src">Tabit Chef — Tender Report</div>
+    <div class="edit-row" id="wolt-edit-row">
+      <div class="l">
+        <div class="lbl-main">✏️ מכירות Wolt (ברוטו)</div>
+        <div class="lbl-src">Tabit Chef — Tender Report — עריכה ידנית</div>
       </div>
-      <div class="v" id="cr-wolt">—</div>
+      <input class="editable-input" id="wolt-input" type="number" placeholder="מכירות Wolt" 
+             oninput="onWoltChange(this.value)" />
     </div>
     <div class="cr total">
       <div>
@@ -315,31 +332,37 @@ body { font-family: system-ui, -apple-system, sans-serif; background:#0d0d1a; co
   <!-- WOLT DETAIL -->
   <div class="section" id="wolt-section">
     <div class="s-title">Wolt — פירוט</div>
-    <div class="wolt-card">
-      <div>
-        <div class="wl">מכירות Wolt (ברוטו)</div>
-        <div class="ws">Tabit Chef — Tender Report</div>
+    <div class="wolt-card" style="flex-direction:column;gap:12px;align-items:stretch">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <div class="wl">✏️ הכנס מכירות Wolt ברוטו</div>
+          <div class="ws">Tabit Chef — Tender Report</div>
+        </div>
+        <div class="wv" id="wolt-sales" style="font-size:14px">—</div>
       </div>
-      <div>
-        <div class="wv" id="wolt-sales">—</div>
-        <div class="ws" id="wolt-pct-of-sales" style="text-align:left">מתוך סה"כ מכירות</div>
-      </div>
+      <input class="editable-input" id="wolt-input-detail" type="number" placeholder="הכנס סכום מכירות Wolt ברוטו"
+             style="width:100%;font-size:16px;padding:10px 14px"
+             oninput="document.getElementById('wolt-input').value=this.value; onWoltChange(this.value)" />
     </div>
     <div style="margin-top:10px">
       <div class="cr">
-        <div><div class="l">מכירות Wolt ברוטו</div><div class="src">Tabit</div></div>
+        <div><div class="l">מכירות Wolt ברוטו</div><div class="src">הוכנס ידנית</div></div>
         <div class="v" id="wolt-gross">—</div>
       </div>
       <div class="cr">
-        <div><div class="l">עמלת Wolt (24%)</div><div class="src">מחושב</div></div>
+        <div><div class="l">עמלת Wolt (24%)</div><div class="src">מחושב אוטומטית</div></div>
         <div class="v" id="wolt-commission">—</div>
+      </div>
+      <div class="cr" style="background:rgba(255,107,53,0.1)">
+        <div><div class="l">% ממכירות כולל</div><div class="src">ברוטו / ברוטו</div></div>
+        <div class="v" id="wolt-pct-of-sales" style="color:#ff6b35">—</div>
       </div>
     </div>
   </div>
 
   <!-- FOOD SUPPLIERS -->
   <div class="section">
-    <div class="s-title">ספקי מזון — מאי 2026</div>
+    <div class="s-title">ספקי מזון — <span id="sup-month-lbl">יוני 2026</span></div>
     <div class="sup-grid" id="sup-grid">
       <div class="no-data" style="grid-column:1/-1;color:rgba(255,255,255,0.2);font-size:12px;padding:20px 0">טוען ספקים...</div>
     </div>
@@ -421,16 +444,20 @@ async function loadDashboard(){
 }
 
 function renderDashboard(d){
-  const salesVat  = d.einstein_sales_vat  || 614771;
-  const salesNet  = d.einstein_sales_net  || 521162;
-  const labor     = d.einstein_labor      || 112675;
-  const food      = d.einstein_food       || 197741;
+  // Determine current month label
+  const now = new Date();
+  const monthLabel = now.toLocaleString('he-IL', {month:'long', year:'numeric'});
+  
+  const salesVat  = d.einstein_sales_vat  || 0;
+  const salesNet  = d.einstein_sales_net  || 0;
+  const labor     = d.einstein_labor      || 0;
+  const food      = d.einstein_food       || 0;
   const woltVat   = d.einstein_wolt_vat   || 0;
-  const vendors   = d.einstein_vendors    || SUPPLIERS;
+  const vendors   = d.einstein_vendors    || [];
   const lastUpd   = d.last_updated        || null;
 
   const woltComm  = Math.round(woltVat * 0.24);
-  const diners    = 2680;
+  const diners    = d.einstein_diners || 0;
   const avgDiner  = salesVat / diners;
   const laborPct  = labor / salesNet * 100;
   const foodPct   = food  / salesNet * 100;
@@ -438,7 +465,7 @@ function renderDashboard(d){
   const totalPct  = laborPct + foodPct;
 
   // Header
-  document.getElementById('h-month').textContent = 'מאי 2026 — MTD';
+  document.getElementById('h-month').textContent = monthLabel+' — MTD';
 
   // Hero
   const hero = document.getElementById('hero');
@@ -456,39 +483,33 @@ function renderDashboard(d){
   document.getElementById('k-avg').textContent       = '₪'+Math.round(avgDiner);
 
   // KPI row 2
-  document.getElementById('k-labor').textContent     = fmt(labor);
-  document.getElementById('k-labor-pct').textContent = laborPct.toFixed(1)+'% ממכירות';
+  document.getElementById('k-labor').textContent     = labor>0 ? fmt(labor) : '—';
+  document.getElementById('k-labor-pct').textContent = labor>0 ? laborPct.toFixed(1)+'% ממכירות' : 'הכנס ידנית';
   document.getElementById('bar-labor').style.width   = Math.min(100,laborPct/50*100)+'%';
+  if(labor>0) document.getElementById('labor-input').value = labor;
 
   document.getElementById('k-food').textContent      = fmt(food);
   document.getElementById('k-food-pct').textContent  = foodPct.toFixed(1)+'% ממכירות';
   document.getElementById('bar-food').style.width    = Math.min(100,foodPct/50*100)+'%';
 
+  // Wolt — populate input if we have data
   if(woltVat > 0){
-    document.getElementById('k-wolt').textContent     = fmt(woltComm);
-    document.getElementById('k-wolt-pct').textContent = woltPct.toFixed(1)+'% ממכירות';
-    document.getElementById('bar-wolt').style.width   = Math.min(100,woltPct/20*100)+'%';
-    document.getElementById('wolt-sales').textContent  = fmtFull(woltVat);
-    document.getElementById('wolt-gross').textContent  = fmtFull(woltVat);
-    document.getElementById('wolt-commission').textContent = fmtFull(woltComm);
-    document.getElementById('wolt-pct-of-sales').textContent =
-      (woltVat/salesVat*100).toFixed(1)+'% מסה"כ מכירות';
-  } else {
-    document.getElementById('k-wolt').textContent     = '—';
-    document.getElementById('k-wolt-pct').textContent = 'ממתין לנתון';
-    document.getElementById('wolt-sales').textContent  = '—';
-    document.getElementById('wolt-gross').textContent  = '—';
-    document.getElementById('wolt-commission').textContent = '—';
+    document.getElementById('wolt-input').value = woltVat;
+    document.getElementById('wolt-input-detail').value = woltVat;
   }
+  updateWoltDisplay(woltVat, salesVat, salesNet);
 
   document.getElementById('k-total-pct').textContent = totalPct.toFixed(1)+'%';
   document.getElementById('bar-total').style.width   = Math.min(100,totalPct/60*100)+'%';
 
   // Cost breakdown
-  document.getElementById('cr-labor').textContent = fmtFull(labor);
+  // labor shown via editable input
   document.getElementById('cr-food').textContent  = fmtFull(food);
-  document.getElementById('cr-wolt').textContent  = woltVat>0 ? fmtFull(woltComm) : '—';
+  // wolt shown via editable input
   document.getElementById('cr-total').textContent = fmtFull(labor+food);
+  window._currentSalesVat = salesVat;
+  window._currentSalesNet = salesNet;
+  window._currentFood = food;
 
   // Suppliers
   const grid = document.getElementById('sup-grid');
@@ -506,10 +527,67 @@ function renderDashboard(d){
     const d2 = new Date(lastUpd);
     document.getElementById('last-upd').textContent = 'עדכון אחרון: '+d2.toLocaleString('he-IL');
   } else {
-    document.getElementById('last-upd').textContent = 'נתונים ידניים — מאי 2026';
+    document.getElementById('last-upd').textContent = 'נתונים ידניים — '+monthLabel;
   }
 
   hideLoading();
+}
+
+// ── EDITABLE HANDLERS ──
+function onLaborChange(val){
+  const labor = parseFloat(val) || 0;
+  const salesNet = window._currentSalesNet || 0;
+  const food = window._currentFood || 0;
+  if(salesNet > 0){
+    const lp = labor/salesNet*100;
+    const fp = food/salesNet*100;
+    const tp = lp+fp;
+    document.getElementById('k-labor').textContent = labor>0 ? fmt(labor) : '—';
+    document.getElementById('k-labor-pct').textContent = labor>0 ? lp.toFixed(1)+'% ממכירות' : 'הכנס ידנית';
+    document.getElementById('bar-labor').style.width = Math.min(100,lp/50*100)+'%';
+    document.getElementById('k-total-pct').textContent = tp.toFixed(1)+'%';
+    document.getElementById('bar-total').style.width = Math.min(100,tp/60*100)+'%';
+    document.getElementById('total-pct').textContent = tp.toFixed(1)+'%';
+    document.getElementById('hero-sub').textContent = 'מזון '+fp.toFixed(1)+'% | שכר '+lp.toFixed(1)+'%';
+    const hero = document.getElementById('hero');
+    hero.className = 'hero '+(tp<45?'green':tp<50?'orange':'red');
+    document.getElementById('hero-emoji').textContent = tp<45?'🟢':tp<50?'🟡':'🔴';
+    document.getElementById('cr-total').textContent = fmtFull(labor+food);
+  }
+  window._currentLabor = labor;
+}
+
+function updateWoltDisplay(woltVat, salesVat, salesNet){
+  salesVat = salesVat || window._currentSalesVat || 0;
+  salesNet = salesNet || window._currentSalesNet || 0;
+  const woltComm = Math.round(woltVat * 0.24);
+  const woltPct = salesNet>0 ? woltComm/salesNet*100 : 0;
+  if(woltVat > 0){
+    document.getElementById('k-wolt').textContent = fmt(woltComm);
+    document.getElementById('k-wolt-pct').textContent = woltPct.toFixed(1)+'% ממכירות';
+    document.getElementById('bar-wolt').style.width = Math.min(100,woltPct/20*100)+'%';
+    document.getElementById('wolt-sales').textContent = fmtFull(woltVat);
+    document.getElementById('wolt-gross').textContent = fmtFull(woltVat);
+    document.getElementById('wolt-commission').textContent = fmtFull(woltComm);
+    document.getElementById('wolt-pct-of-sales').textContent = salesVat>0 ? (woltVat/salesVat*100).toFixed(1)+'% מסה"כ מכירות' : '—';
+  } else {
+    document.getElementById('k-wolt').textContent = '—';
+    document.getElementById('k-wolt-pct').textContent = 'ממתין לנתון';
+    document.getElementById('wolt-sales').textContent = '—';
+    document.getElementById('wolt-gross').textContent = '—';
+    document.getElementById('wolt-commission').textContent = '—';
+    document.getElementById('wolt-pct-of-sales').textContent = '—';
+  }
+}
+
+function onWoltChange(val){
+  const woltVat = parseFloat(val) || 0;
+  // sync both inputs
+  const inp1 = document.getElementById('wolt-input');
+  const inp2 = document.getElementById('wolt-input-detail');
+  if(inp1 && inp1.value !== String(woltVat)) inp1.value = woltVat || '';
+  if(inp2 && inp2.value !== String(woltVat)) inp2.value = woltVat || '';
+  updateWoltDisplay(woltVat);
 }
 
 async function triggerSync(){
