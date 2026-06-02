@@ -11,8 +11,7 @@ body { font-family: system-ui, -apple-system, sans-serif; background:#0d0d1a; co
 /* PAYWALL */
 #paywall { position:fixed; inset:0; background:#0d0d1a; display:flex; align-items:center; justify-content:center; z-index:99999; padding:20px; }
 .pw-box { background:#16162a; border:1px solid rgba(255,255,255,0.1); border-radius:20px; padding:36px 28px; max-width:380px; width:100%; text-align:center; }
-.pw-logo { margin-bottom:14px; }
-.pw-logo img { height:48px; object-fit:contain; }
+.pw-logo img { height:48px; object-fit:contain; margin-bottom:14px; }
 .pw-title { font-size:22px; font-weight:800; color:white; margin-bottom:6px; }
 .pw-branch { font-size:13px; color:#a78bfa; font-weight:700; margin-bottom:6px; }
 .pw-sub { font-size:13px; color:rgba(255,255,255,0.4); margin-bottom:28px; line-height:1.6; }
@@ -21,35 +20,20 @@ body { font-family: system-ui, -apple-system, sans-serif; background:#0d0d1a; co
 .pw-btn { width:100%; padding:13px; border-radius:10px; border:none; background:linear-gradient(135deg,#4f1faa,#7c3aed); color:white; font-size:15px; font-weight:700; cursor:pointer; font-family:inherit; }
 .pw-err { color:#f87171; font-size:12px; margin-top:10px; min-height:18px; }
 
-/* LOADING */
-#loading { position:fixed; inset:0; background:#0d0d1a; display:none; flex-direction:column; align-items:center; justify-content:center; z-index:9999; }
-.spin { width:36px; height:36px; border:3px solid rgba(255,255,255,0.1); border-top-color:#a78bfa; border-radius:50%; animation:spin 0.8s linear infinite; margin-bottom:14px; }
-@keyframes spin { to { transform:rotate(360deg); } }
-.loading-text { color:rgba(255,255,255,0.4); font-size:13px; }
-
-/* SYNC ERROR MODAL */
-#sync-modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:9998; align-items:center; justify-content:center; }
-#sync-modal.show { display:flex; }
-.modal-box { background:#1e1e35; border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding:28px; max-width:340px; width:90%; text-align:center; }
-.modal-icon { font-size:32px; margin-bottom:10px; }
-.modal-title { font-size:16px; font-weight:800; margin-bottom:8px; }
-.modal-msg { font-size:12px; color:rgba(255,255,255,0.5); margin-bottom:20px; line-height:1.6; }
-.modal-btns { display:flex; gap:10px; }
-.modal-sync { flex:1; padding:11px; border-radius:10px; border:none; background:linear-gradient(135deg,#4f1faa,#7c3aed); color:white; font-size:13px; font-weight:700; cursor:pointer; font-family:inherit; }
-.modal-dismiss { flex:1; padding:11px; border-radius:10px; border:1px solid rgba(255,255,255,0.15); background:transparent; color:rgba(255,255,255,0.5); font-size:12px; cursor:pointer; font-family:inherit; }
+/* APP */
+#app { display:none; }
 
 /* HEADER */
 .header { background:#16162a; border-bottom:1px solid rgba(255,255,255,0.07); padding:14px 16px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:100; }
 .h-left { display:flex; align-items:center; gap:12px; }
-.h-logo-img { height:32px; object-fit:contain; }
-.h-branch { font-size:18px; font-weight:900; color:white; }
+.h-logo-img { height:32px; }
+.h-branch { font-size:18px; font-weight:900; }
 .h-branch span { color:#a78bfa; }
 .h-month { font-size:11px; color:rgba(255,255,255,0.4); margin-top:2px; }
-.sync-btn { background:#6d28d9; border:none; color:white; padding:8px 16px; border-radius:20px; font-size:12px; font-weight:700; cursor:pointer; font-family:inherit; display:flex; align-items:center; gap:6px; }
-.sync-btn:disabled { opacity:0.5; cursor:not-allowed; }
+.sync-btn { background:#6d28d9; border:none; color:white; padding:8px 16px; border-radius:20px; font-size:12px; font-weight:700; cursor:pointer; font-family:inherit; }
 
 /* TABS */
-.tabs-bar { display:flex; gap:0; background:#16162a; border-bottom:1px solid rgba(255,255,255,0.07); }
+.tabs-bar { display:flex; background:#16162a; border-bottom:1px solid rgba(255,255,255,0.07); }
 .tab-btn { flex:1; padding:12px 0; border:none; font-size:13px; font-weight:700; cursor:pointer; font-family:inherit; background:transparent; color:rgba(255,255,255,0.35); border-bottom:3px solid transparent; transition:all 0.2s; }
 .tab-btn.active { color:white; border-bottom:3px solid #a78bfa; background:rgba(167,139,250,0.06); }
 .tab-pane { display:none; }
@@ -67,40 +51,34 @@ body { font-family: system-ui, -apple-system, sans-serif; background:#0d0d1a; co
 .hero .big { font-size:38px; font-weight:900; line-height:1; }
 .hero .lbl { font-size:11px; opacity:0.65; margin-bottom:4px; }
 .hero .sub { font-size:11px; opacity:0.6; margin-top:6px; }
-.hero .target { font-size:11px; background:rgba(255,255,255,0.2); border-radius:12px; padding:3px 10px; display:inline-block; margin-top:8px; }
 
 /* KPI */
 .kpi-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px; }
 @media(min-width:560px){ .kpi-grid { grid-template-columns:repeat(4,1fr); } }
 .kpi { background:#16162a; border-radius:12px; padding:14px; border-top:3px solid #333; }
-.kpi.sales   { border-top-color:#7c3aed; }
-.kpi.net     { border-top-color:#a78bfa; }
-.kpi.diners  { border-top-color:#06b6d4; }
-.kpi.avg     { border-top-color:#10b981; }
-.kpi.labor   { border-top-color:#f59e0b; }
-.kpi.food    { border-top-color:#ef4444; }
-.kpi.wolt    { border-top-color:#ff6b35; }
-.kpi.total   { border-top-color:#8b5cf6; }
+.kpi.purple { border-top-color:#7c3aed; }
+.kpi.violet { border-top-color:#a78bfa; }
+.kpi.cyan   { border-top-color:#06b6d4; }
+.kpi.green  { border-top-color:#10b981; }
+.kpi.yellow { border-top-color:#f59e0b; }
+.kpi.red    { border-top-color:#ef4444; }
+.kpi.orange { border-top-color:#ff6b35; }
+.kpi.indigo { border-top-color:#8b5cf6; }
 .kpi-lbl { font-size:9px; color:rgba(255,255,255,0.35); font-weight:700; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:5px; }
 .kpi-val { font-size:20px; font-weight:900; color:white; line-height:1.1; }
 .kpi-sub { font-size:9px; color:rgba(255,255,255,0.3); margin-top:3px; }
 .bar { background:rgba(255,255,255,0.08); border-radius:4px; height:4px; margin-top:7px; overflow:hidden; }
-.bf { height:100%; border-radius:4px; }
-.bf.green  { background:#10b981; }
-.bf.orange { background:#f59e0b; }
-.bf.red    { background:#ef4444; }
-.bf.purple { background:#7c3aed; }
-.bf.wolt   { background:#ff6b35; }
+.bf { height:100%; border-radius:4px; transition:width 0.6s; }
+.bf.g { background:#10b981; } .bf.o { background:#f59e0b; } .bf.r { background:#ef4444; }
+.bf.p { background:#7c3aed; } .bf.w { background:#ff6b35; }
 
 /* SECTION */
 .section { background:#16162a; border-radius:12px; padding:16px; margin-bottom:12px; }
 .s-title { font-size:10px; font-weight:700; color:rgba(255,255,255,0.3); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:12px; }
-
-/* COST ROWS */
 .cr { display:flex; justify-content:space-between; align-items:center; padding:10px 12px; border-radius:8px; margin-bottom:6px; background:rgba(255,255,255,0.04); }
 .cr.total-row { background:rgba(124,58,237,0.2); }
 .cr .l { font-size:12px; color:rgba(255,255,255,0.6); }
-.cr .src { font-size:9px; color:rgba(255,255,255,0.25); margin-top:1px; }
+.cr .src { font-size:9px; color:rgba(255,255,255,0.25); }
 .cr .v { font-size:14px; font-weight:800; color:white; }
 .cr.total-row .l { color:white; font-weight:700; }
 .cr.total-row .v { color:#a78bfa; font-size:16px; }
@@ -113,24 +91,18 @@ body { font-family: system-ui, -apple-system, sans-serif; background:#0d0d1a; co
 .sup-box .sl { font-size:9px; color:rgba(255,255,255,0.35); margin-bottom:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .sup-box .sc { font-size:9px; color:rgba(255,255,255,0.25); margin-top:2px; }
 
-/* WOLT CARD */
+/* WOLT */
 .wolt-card { background:rgba(255,107,53,0.1); border:1px solid rgba(255,107,53,0.3); border-radius:10px; padding:14px; }
 
-/* EDITABLE */
+/* EDITABLE INPUT */
 .edit-row { display:flex; align-items:center; gap:8px; padding:10px 12px; border-radius:8px; margin-bottom:6px; background:rgba(255,255,255,0.04); }
-.edit-row .l { flex:1; }
-.edit-row .lbl-main { font-size:12px; color:rgba(255,255,255,0.6); }
-.edit-row .lbl-src  { font-size:9px; color:rgba(255,255,255,0.25); margin-top:1px; }
-.editable-input { background:rgba(255,255,255,0.08); border:1.5px solid rgba(124,58,237,0.4); border-radius:8px; color:white; font-size:14px; font-weight:800; padding:6px 10px; width:130px; text-align:left; font-family:inherit; outline:none; direction:ltr; }
-.editable-input:focus { border-color:#a78bfa; background:rgba(124,58,237,0.15); }
-.editable-input::placeholder { color:rgba(255,255,255,0.2); font-weight:400; font-size:11px; }
+.edit-row .l { flex:1; font-size:12px; color:rgba(255,255,255,0.6); }
+.edt { background:rgba(255,255,255,0.08); border:1.5px solid rgba(124,58,237,0.4); border-radius:8px; color:white; font-size:14px; font-weight:800; padding:6px 10px; width:140px; text-align:left; font-family:inherit; outline:none; direction:ltr; }
+.edt:focus { border-color:#a78bfa; background:rgba(124,58,237,0.15); }
 
-/* FOOTER */
-.footer { text-align:center; padding:20px 0 10px; }
-.last-upd { font-size:10px; color:rgba(255,255,255,0.2); }
-
-/* NOTE BOX */
+/* NOTE */
 .note-box { background:rgba(167,139,250,0.07); border:1px dashed rgba(167,139,250,0.2); border-radius:12px; padding:14px; margin-bottom:12px; font-size:11px; color:rgba(255,255,255,0.4); text-align:center; line-height:1.8; }
+.last-upd { font-size:10px; color:rgba(255,255,255,0.2); text-align:center; padding:10px 0 4px; }
 </style>
 </head>
 <body>
@@ -144,293 +116,220 @@ body { font-family: system-ui, -apple-system, sans-serif; background:#0d0d1a; co
     <div class="pw-title">Solika Einstein</div>
     <div class="pw-branch">סוליקה אינשטיין</div>
     <div class="pw-sub">הכנס קוד גישה להמשך</div>
-    <input class="pw-input" id="pw-input" type="password" placeholder="קוד גישה" autocomplete="off" />
+    <input class="pw-input" id="pw-input" type="password" placeholder="קוד גישה" autocomplete="off">
     <button class="pw-btn" onclick="checkPW()">כניסה</button>
     <div class="pw-err" id="pw-err"></div>
   </div>
 </div>
 
-<!-- LOADING -->
-<div id="loading">
-  <div class="spin"></div>
-  <div class="loading-text" id="loading-text">טוען נתונים...</div>
-</div>
-
-<!-- SYNC ERROR MODAL -->
-<div id="sync-modal">
-  <div class="modal-box">
-    <div class="modal-icon">⚠️</div>
-    <div class="modal-title">שגיאה בטעינת נתונים</div>
-    <div class="modal-msg" id="modal-msg">לא ניתן לטעון את הנתונים.</div>
-    <div class="modal-btns">
-      <button class="modal-sync" onclick="triggerSync()">🔄 סנכרן עכשיו</button>
-      <button class="modal-dismiss" onclick="document.getElementById('sync-modal').classList.remove('show')">המשך בכל זאת</button>
-    </div>
-  </div>
-</div>
-
-<!-- APP WRAPPER (hidden until login) -->
-<div id="app" style="display:none">
-
+<!-- APP -->
+<div id="app">
   <!-- HEADER -->
   <div class="header">
     <div class="h-left">
       <img class="h-logo-img" src="https://base44.app/api/apps/69b697029d0cd0fecb49189b/files/mp/public/69b697029d0cd0fecb49189b/a23d2203a_6963469c6_smartplate_logo_insta_320x320px.png" alt="SP" onerror="this.style.display='none'">
       <div>
         <div class="h-branch">Solika <span>Einstein</span></div>
-        <div class="h-month" id="h-month">טוען...</div>
+        <div class="h-month" id="h-month">יוני 2026 — MTD</div>
       </div>
     </div>
-    <button class="sync-btn" id="sync-btn" onclick="triggerSync()">
-      <span>🔄</span> סנכרן עכשיו
-    </button>
+    <button class="sync-btn" onclick="triggerSync()">🔄 סנכרן</button>
   </div>
 
-  <!-- TABS BAR -->
+  <!-- TABS -->
   <div class="tabs-bar">
-    <button class="tab-btn" id="tab-jun" onclick="switchTab('jun')">יוני 2026 — MTD</button>
+    <button class="tab-btn active" id="tab-jun" onclick="switchTab('jun')">יוני 2026 — MTD</button>
     <button class="tab-btn" id="tab-may" onclick="switchTab('may')">מאי 2026</button>
   </div>
 
-  <!-- ═══════════════ JUNE TAB ═══════════════ -->
-  <div class="tab-pane" id="pane-jun">
+  <!-- JUNE PANE -->
+  <div class="tab-pane active" id="pane-jun">
     <div class="container">
+
       <div class="hero gray" id="jun-hero">
         <div>
-          <div class="lbl">עלות כוללת (מזון + שכר + Wolt)</div>
+          <div class="lbl">סה"כ עלויות מתוך מכירות נטו</div>
           <div class="big" id="jun-total-pct">—</div>
-          <div class="sub" id="jun-hero-sub">הכנס נתונים ידנית או סנכרן</div>
-          <div class="target">🎯 יעד: 63%</div>
+          <div class="sub" id="jun-hero-sub">ממתין לנתונים</div>
         </div>
         <div style="font-size:36px" id="jun-hero-emoji">⏳</div>
       </div>
 
       <div class="kpi-grid">
-        <div class="kpi sales">
-          <div class="kpi-lbl">מכירות ברוטו</div>
-          <div class="kpi-val" id="jun-k-sales-vat">—</div>
-          <div class="kpi-sub">כולל מע"מ</div>
-        </div>
-        <div class="kpi net">
-          <div class="kpi-lbl">מכירות נטו</div>
-          <div class="kpi-val" id="jun-k-sales-net">—</div>
-          <div class="kpi-sub">ללא מע"מ</div>
-        </div>
-        <div class="kpi diners">
-          <div class="kpi-lbl">סועדים MTD</div>
-          <div class="kpi-val" id="jun-k-diners">—</div>
-          <div class="kpi-sub" id="jun-k-avg">ממוצע: —</div>
-        </div>
-        <div class="kpi avg">
-          <div class="kpi-lbl">ימי פעילות</div>
-          <div class="kpi-val" id="jun-k-days">—</div>
-          <div class="kpi-sub">יוני 2026</div>
-        </div>
+        <div class="kpi purple"><div class="kpi-lbl">מכירות ברוטו</div><div class="kpi-val" id="jun-k-sales-vat">—</div><div class="kpi-sub">כולל מע"מ</div></div>
+        <div class="kpi violet"><div class="kpi-lbl">מכירות נטו</div><div class="kpi-val" id="jun-k-sales-net">—</div><div class="kpi-sub">ללא מע"מ</div></div>
+        <div class="kpi cyan"><div class="kpi-lbl">ימים</div><div class="kpi-val" id="jun-k-days">—</div><div class="kpi-sub" id="jun-k-avg">ממוצע יומי</div></div>
+        <div class="kpi green"><div class="kpi-lbl">עודכן</div><div class="kpi-val" style="font-size:12px;" id="jun-k-updated">—</div><div class="kpi-sub">עדכון אחרון</div></div>
       </div>
 
       <div class="kpi-grid">
-        <div class="kpi labor">
-          <div class="kpi-lbl">עלות שכר</div>
+        <div class="kpi yellow">
+          <div class="kpi-lbl">שכר עבודה</div>
           <div class="kpi-val" id="jun-k-labor">—</div>
           <div class="kpi-sub" id="jun-k-labor-pct">ממתין</div>
-          <div class="bar"><div class="bf orange" id="jun-bar-labor" style="width:0%"></div></div>
+          <div class="bar"><div class="bf o" id="jun-bar-labor" style="width:0%"></div></div>
         </div>
-        <div class="kpi food">
+        <div class="kpi red">
           <div class="kpi-lbl">עלות מזון</div>
           <div class="kpi-val" id="jun-k-food">—</div>
           <div class="kpi-sub" id="jun-k-food-pct">ממתין</div>
-          <div class="bar"><div class="bf red" id="jun-bar-food" style="width:0%"></div></div>
+          <div class="bar"><div class="bf r" id="jun-bar-food" style="width:0%"></div></div>
         </div>
-        <div class="kpi wolt">
-          <div class="kpi-lbl">Wolt עמלה</div>
+        <div class="kpi orange">
+          <div class="kpi-lbl">Wolt (עמלה 24%)</div>
           <div class="kpi-val" id="jun-k-wolt">—</div>
           <div class="kpi-sub" id="jun-k-wolt-pct">ממתין</div>
-          <div class="bar"><div class="bf wolt" id="jun-bar-wolt" style="width:0%"></div></div>
+          <div class="bar"><div class="bf w" id="jun-bar-wolt" style="width:0%"></div></div>
         </div>
-        <div class="kpi total">
-          <div class="kpi-lbl">עלות כוללת</div>
+        <div class="kpi indigo">
+          <div class="kpi-lbl">סה"כ עלויות</div>
           <div class="kpi-val" id="jun-k-total-pct">—</div>
-          <div class="kpi-sub">מזון + שכר + Wolt</div>
-          <div class="bar"><div class="bf purple" id="jun-bar-total" style="width:0%"></div></div>
+          <div class="kpi-sub">יעד: מתחת ל-63%</div>
+          <div class="bar"><div class="bf p" id="jun-bar-total" style="width:0%"></div></div>
         </div>
       </div>
 
       <div class="section">
-        <div class="s-title">פירוט עלויות — יוני MTD</div>
+        <div class="s-title">הכנסת נתונים ידנית — יוני</div>
         <div class="edit-row">
-          <div class="l">
-            <div class="lbl-main">✏️ עלות שכר</div>
-            <div class="lbl-src">Tabit Chef — עריכה ידנית</div>
-          </div>
-          <input class="editable-input" id="jun-labor-input" type="number" placeholder="הכנס סכום" oninput="onLaborChange(this.value,'jun')" />
-        </div>
-        <div class="cr">
-          <div>
-            <div class="l">עלות מזון (נטו)</div>
-            <div class="src">Zester — יוני MTD</div>
-          </div>
-          <div class="v" id="jun-cr-food">—</div>
+          <div class="l">שכר עבודה (₪ נטו)</div>
+          <input class="edt" id="jun-labor-input" type="number" placeholder="הכנס סכום" oninput="onLaborChange(this.value)">
         </div>
         <div class="edit-row">
-          <div class="l">
-            <div class="lbl-main">✏️ מכירות Wolt (ברוטו)</div>
-            <div class="lbl-src">Tabit API — byTender accountName=WOLT</div>
-          </div>
-          <input class="editable-input" id="jun-wolt-input" type="number" placeholder="מכירות Wolt" oninput="onWoltChange(this.value,'jun')" />
+          <div class="l">מכירות Wolt (₪ ברוטו)</div>
+          <input class="edt" id="jun-wolt-input" type="number" placeholder="הכנס סכום" oninput="onWoltChange(this.value)">
         </div>
-        <div class="cr total-row">
-          <div><div class="l">סה"כ עלות (מזון + שכר + Wolt)</div></div>
-          <div class="v" id="jun-cr-total">—</div>
+        <div class="edit-row">
+          <div class="l">עלות מזון (₪ נטו)</div>
+          <input class="edt" id="jun-food-input" type="number" placeholder="הכנס סכום" oninput="onFoodChange(this.value)">
+        </div>
+        <div class="edit-row">
+          <div class="l">מכירות ברוטו (₪)</div>
+          <input class="edt" id="jun-sales-input" type="number" placeholder="הכנס סכום" oninput="onSalesChange(this.value)">
         </div>
       </div>
 
       <div class="section">
-        <div class="s-title">Wolt — פירוט יוני</div>
-        <div style="font-size:10px;color:rgba(255,107,53,0.7);margin-bottom:10px;padding:6px 10px;background:rgba(255,107,53,0.08);border-radius:8px;text-align:center;">
-          נוסחה: מכירות Wolt × 24% ÷ סה"כ מכירות ברוטו
-        </div>
-        <div class="wolt-card" style="display:flex;flex-direction:column;gap:10px;">
-          <div style="display:flex;justify-content:space-between;align-items:center">
-            <div style="font-size:12px;color:rgba(255,255,255,0.7)">מכירות Wolt ברוטו (MTD)</div>
-            <div style="font-size:16px;font-weight:900;color:#ff6b35" id="jun-wolt-sales">—</div>
-          </div>
-          <div style="display:flex;justify-content:space-between;align-items:center">
-            <div style="font-size:12px;color:rgba(255,255,255,0.7)">עמלה (×24%)</div>
-            <div style="font-size:16px;font-weight:900;color:#ff6b35" id="jun-wolt-commission">—</div>
-          </div>
-          <div style="display:flex;justify-content:space-between;align-items:center">
-            <div style="font-size:12px;color:rgba(255,255,255,0.7)">% מסה"כ מכירות</div>
-            <div style="font-size:18px;font-weight:900;color:#ff6b35" id="jun-wolt-pct-of-sales">—</div>
-          </div>
+        <div class="s-title">פירוט עלויות — יוני</div>
+        <div class="cr"><div class="l">שכר עבודה<div class="src">Tabit Chef</div></div><div class="v" id="jun-cr-labor">—</div></div>
+        <div class="cr"><div class="l">עלות מזון<div class="src">Zester</div></div><div class="v" id="jun-cr-food">—</div></div>
+        <div class="cr"><div class="l">עמלת Wolt (24%)<div class="src">Tabit Tender Report</div></div><div class="v" id="jun-cr-wolt-comm">—</div></div>
+        <div class="cr total-row"><div class="l">סה"כ עלויות</div><div class="v" id="jun-cr-total">—</div></div>
+      </div>
+
+      <div class="section">
+        <div class="s-title">Wolt — יוני</div>
+        <div class="wolt-card">
+          <div class="cr" style="background:transparent;padding:4px 0;margin-bottom:4px;"><div class="l">מכירות Wolt ברוטו</div><div class="v" id="jun-wolt-sales">—</div></div>
+          <div class="cr" style="background:transparent;padding:4px 0;"><div class="l">עמלה 24%</div><div class="v" id="jun-wolt-commission">—</div></div>
+          <div class="cr" style="background:transparent;padding:4px 0;"><div class="l">אחוז מסה"כ מכירות</div><div class="v" id="jun-wolt-pct-of-sales">—</div></div>
         </div>
       </div>
 
-      <div class="note-box">
-        📅 יוני 2026 — MTD מצטבר<br>
-        נתוני מכירות מתעדכנים אוטומטית מה-Tabit API כל בוקר<br>
-        <span id="jun-last-upd" style="color:rgba(255,255,255,0.2)">—</span>
-      </div>
-
-      <div class="footer"></div>
+      <div class="note-box">יוני 2026 בתהליך — נתוני שכר ומזון יתעדכנו אוטומטית עם הסנכרון היומי</div>
+      <div class="last-upd" id="jun-last-upd"></div>
     </div>
   </div>
 
-  <!-- ═══════════════ MAY TAB ═══════════════ -->
+  <!-- MAY PANE -->
   <div class="tab-pane" id="pane-may">
     <div class="container">
+
       <div class="hero green" id="may-hero">
         <div>
-          <div class="lbl">עלות כוללת (מזון + שכר + Wolt)</div>
+          <div class="lbl">סה"כ עלויות מתוך מכירות נטו</div>
           <div class="big" id="may-total-pct">—</div>
           <div class="sub" id="may-hero-sub">מאי 2026 — סגור</div>
-          <div class="target">🎯 יעד: 63%</div>
         </div>
-        <div style="font-size:36px" id="may-hero-emoji">—</div>
+        <div style="font-size:36px" id="may-hero-emoji">🟢</div>
       </div>
 
       <div class="kpi-grid">
-        <div class="kpi sales">
-          <div class="kpi-lbl">מכירות ברוטו</div>
-          <div class="kpi-val" id="may-k-sales-vat">—</div>
-          <div class="kpi-sub">כולל מע"מ</div>
-        </div>
-        <div class="kpi net">
-          <div class="kpi-lbl">מכירות נטו</div>
-          <div class="kpi-val" id="may-k-sales-net">—</div>
-          <div class="kpi-sub">ללא מע"מ</div>
-        </div>
-        <div class="kpi diners">
-          <div class="kpi-lbl">סועדים</div>
-          <div class="kpi-val" id="may-k-diners">—</div>
-          <div class="kpi-sub" id="may-k-avg">ממוצע: —</div>
-        </div>
-        <div class="kpi avg">
-          <div class="kpi-lbl">ממוצע יומי</div>
-          <div class="kpi-val" id="may-k-daily-avg">—</div>
-          <div class="kpi-sub">מכירות ברוטו</div>
-        </div>
+        <div class="kpi purple"><div class="kpi-lbl">מכירות ברוטו</div><div class="kpi-val" id="may-k-sales-vat">—</div><div class="kpi-sub">כולל מע"מ</div></div>
+        <div class="kpi violet"><div class="kpi-lbl">מכירות נטו</div><div class="kpi-val" id="may-k-sales-net">—</div><div class="kpi-sub">ללא מע"מ</div></div>
+        <div class="kpi cyan"><div class="kpi-lbl">סועדים</div><div class="kpi-val" id="may-k-diners">—</div><div class="kpi-sub" id="may-k-avg">ממוצע</div></div>
+        <div class="kpi green"><div class="kpi-lbl">ממוצע יומי</div><div class="kpi-val" id="may-k-daily-avg">—</div><div class="kpi-sub">31 ימים</div></div>
       </div>
 
       <div class="kpi-grid">
-        <div class="kpi labor">
-          <div class="kpi-lbl">עלות שכר</div>
+        <div class="kpi yellow">
+          <div class="kpi-lbl">שכר עבודה</div>
           <div class="kpi-val" id="may-k-labor">—</div>
           <div class="kpi-sub" id="may-k-labor-pct">—</div>
-          <div class="bar"><div class="bf orange" id="may-bar-labor" style="width:0%"></div></div>
+          <div class="bar"><div class="bf o" id="may-bar-labor" style="width:0%"></div></div>
         </div>
-        <div class="kpi food">
+        <div class="kpi red">
           <div class="kpi-lbl">עלות מזון</div>
           <div class="kpi-val" id="may-k-food">—</div>
           <div class="kpi-sub" id="may-k-food-pct">—</div>
-          <div class="bar"><div class="bf red" id="may-bar-food" style="width:0%"></div></div>
+          <div class="bar"><div class="bf r" id="may-bar-food" style="width:0%"></div></div>
         </div>
-        <div class="kpi wolt">
-          <div class="kpi-lbl">Wolt עמלה</div>
+        <div class="kpi orange">
+          <div class="kpi-lbl">Wolt (עמלה 24%)</div>
           <div class="kpi-val" id="may-k-wolt">—</div>
           <div class="kpi-sub" id="may-k-wolt-pct">—</div>
-          <div class="bar"><div class="bf wolt" id="may-bar-wolt" style="width:0%"></div></div>
+          <div class="bar"><div class="bf w" id="may-bar-wolt" style="width:0%"></div></div>
         </div>
-        <div class="kpi total">
-          <div class="kpi-lbl">עלות כוללת</div>
+        <div class="kpi indigo">
+          <div class="kpi-lbl">סה"כ עלויות</div>
           <div class="kpi-val" id="may-k-total-pct">—</div>
-          <div class="kpi-sub">מזון + שכר + Wolt</div>
-          <div class="bar"><div class="bf purple" id="may-bar-total" style="width:0%"></div></div>
+          <div class="kpi-sub">יעד: מתחת ל-63%</div>
+          <div class="bar"><div class="bf p" id="may-bar-total" style="width:0%"></div></div>
         </div>
       </div>
 
       <div class="section">
-        <div class="s-title">פירוט עלויות — מאי 2026</div>
-        <div class="cr">
-          <div><div class="l">עלות שכר</div><div class="src">Tabit Chef</div></div>
-          <div class="v" id="may-cr-labor">—</div>
-        </div>
-        <div class="cr">
-          <div><div class="l">עלות מזון (נטו)</div><div class="src">Zester</div></div>
-          <div class="v" id="may-cr-food">—</div>
-        </div>
-        <div class="cr">
-          <div><div class="l">מכירות Wolt ברוטו</div><div class="src">Tabit API</div></div>
-          <div class="v" id="may-cr-wolt-sales">—</div>
-        </div>
-        <div class="cr">
-          <div><div class="l">עמלת Wolt (24%)</div><div class="src">מחושב</div></div>
-          <div class="v" id="may-cr-wolt-comm">—</div>
-        </div>
-        <div class="cr total-row">
-          <div><div class="l">סה"כ עלות (מזון + שכר + Wolt)</div></div>
-          <div class="v" id="may-cr-total">—</div>
+        <div class="s-title">פירוט עלויות — מאי</div>
+        <div class="cr"><div class="l">שכר עבודה<div class="src">Tabit Chef</div></div><div class="v" id="may-cr-labor">—</div></div>
+        <div class="cr"><div class="l">עלות מזון<div class="src">Zester</div></div><div class="v" id="may-cr-food">—</div></div>
+        <div class="cr"><div class="l">עמלת Wolt (24%)<div class="src">Tabit Tender Report</div></div><div class="v" id="may-cr-wolt-comm">—</div></div>
+        <div class="cr total-row"><div class="l">סה"כ עלויות</div><div class="v" id="may-cr-total">—</div></div>
+      </div>
+
+      <div class="section">
+        <div class="s-title">Wolt — מאי</div>
+        <div class="wolt-card">
+          <div class="cr" style="background:transparent;padding:4px 0;margin-bottom:4px;"><div class="l">מכירות Wolt ברוטו</div><div class="v" id="may-wolt-sales">—</div></div>
+          <div class="cr" style="background:transparent;padding:4px 0;"><div class="l">עמלה 24%</div><div class="v" id="may-wolt-commission">—</div></div>
+          <div class="cr" style="background:transparent;padding:4px 0;"><div class="l">אחוז מסה"כ מכירות</div><div class="v" id="may-wolt-pct-of-sales">—</div></div>
         </div>
       </div>
 
       <div class="section">
-        <div class="s-title">ספקי מזון — מאי 2026</div>
+        <div class="s-title">ספקים — מאי 2026</div>
         <div class="sup-grid" id="may-sup-grid"></div>
       </div>
 
-      <div class="footer">
-        <div class="last-upd" id="may-last-upd">—</div>
-      </div>
+      <div class="last-upd" id="may-last-upd"></div>
     </div>
   </div>
-
 </div><!-- /app -->
 
 <script>
-const ROSA_URL = 'https://rosa-6d8ebb9e.base44.app/api/functions';
 const CODES = ['SOLIKA2026','EINSTEIN','SMARTPLATE'];
+const ROSA  = 'https://rosa-6d8ebb9e.base44.app/api/functions';
 
-const MAY_SUPPLIERS = [
-  {name:'חמישה קצבים',net:47856},{name:'מאסטרפוד',net:21477},
-  {name:'מילועוף',net:19423},{name:'מ.ר כלים',net:15877},
-  {name:'אחים כהן',net:8543},{name:'י.שבי שיווק',net:8191},
-  {name:'אהרון שיווק',net:7503},{name:'זטופאק לחם',net:6079},
-  {name:'חמים וטעים',net:5082},{name:'אחרים',net:7984}
-];
-
-// Per-tab state
+// State — pre-loaded with confirmed entity data
 const S = {
-  may:{ salesVat:622032, salesNet:527146, labor:134860, food:198015, wolt:196974, diners:2680 },
-  jun:{ salesVat:0, salesNet:0, labor:0, food:0, wolt:0, diners:0 }
+  may: {
+    salesVat: 622032, salesNet: 527146,
+    labor: 134860, food: 197741, wolt: 196974,
+    diners: 2680,
+    vendors: [
+      {name:'חמישה קצבים',net:23590},{name:'מאסטרפוד',net:21477},
+      {name:'מילועוף',net:19423},{name:'מ.ר כלים',net:15877},
+      {name:'אחים כהן',net:8543},{name:'י.שבי שיווק',net:8191},
+      {name:'אהרון שיווק',net:7503},{name:'זטופאק לחם',net:6079},
+      {name:'א. ביסקוטי',net:5999},{name:'חמים וטעים',net:5082}
+    ],
+    lastUpdated: '2026-06-02T00:10:00'
+  },
+  jun: {
+    salesVat: 17918, salesNet: 15185,
+    labor: 6750, food: 0, wolt: 0,
+    diners: 0,
+    lastUpdated: '2026-06-02T22:27:00'
+  }
 };
 
 let activeTab = 'jun';
@@ -438,85 +337,125 @@ let activeTab = 'jun';
 function fmt(n){ return n>=1000?'₪'+(n/1000).toFixed(1)+'K':'₪'+Math.round(n).toLocaleString('he-IL'); }
 function fmtFull(n){ return '₪'+Math.round(n).toLocaleString('he-IL'); }
 function el(id,v){ const e=document.getElementById(id); if(e) e.textContent=v; }
-function barW(id,ratio){ const e=document.getElementById(id); if(e) e.style.width=Math.min(100,Math.max(0,ratio*100))+'%'; }
+function barW(id,pct){ const e=document.getElementById(id); if(e) e.style.width=Math.min(100,Math.max(0,pct))+'%'; }
 function inp(id,v){ const e=document.getElementById(id); if(e&&v) e.value=v; }
 
-function renderTab(t){
-  const s = S[t];
-  const woltComm = Math.round((s.wolt||0)*0.24);
-  const lp = s.salesNet>0 ? (s.labor||0)/s.salesNet*100 : 0;
-  const fp = s.salesNet>0 ? (s.food||0)/s.salesNet*100  : 0;
-  const wp = s.salesNet>0 ? woltComm/s.salesNet*100     : 0;
+function renderMay(){
+  const s = S.may;
+  const wc = Math.round(s.wolt*0.24);
+  const lp = (s.labor/s.salesNet*100);
+  const fp = (s.food/s.salesNet*100);
+  const wp = (wc/s.salesNet*100);
   const tp = lp+fp+wp;
-  const hasData = s.salesVat > 0;
 
-  // Hero
-  const heroEl = document.getElementById(t+'-hero');
-  if(heroEl) heroEl.className = 'hero '+(hasData?(tp<63?'green':tp<68?'orange':'red'):'gray');
-  el(t+'-total-pct', hasData ? tp.toFixed(1)+'%' : '—');
-  el(t+'-hero-sub',  hasData ? 'מזון '+fp.toFixed(1)+'% | שכר '+lp.toFixed(1)+'% | Wolt '+wp.toFixed(1)+'%' : (t==='jun'?'הכנס נתונים ידנית או סנכרן':'מאי 2026 — סגור'));
-  el(t+'-hero-emoji', hasData?(tp<63?'🟢':tp<68?'🟡':'🔴'):(t==='jun'?'⏳':'—'));
+  const heroEl = document.getElementById('may-hero');
+  heroEl.className = 'hero '+(tp<63?'green':tp<68?'orange':'red');
+  el('may-total-pct', tp.toFixed(1)+'%');
+  el('may-hero-sub', 'מזון '+fp.toFixed(1)+'% | שכר '+lp.toFixed(1)+'% | Wolt '+wp.toFixed(1)+'%');
+  el('may-hero-emoji', tp<63?'🟢':tp<68?'🟡':'🔴');
 
-  // KPI row 1
-  el(t+'-k-sales-vat', hasData ? fmt(s.salesVat) : '—');
-  el(t+'-k-sales-net', hasData ? fmt(s.salesNet)  : '—');
+  el('may-k-sales-vat', fmt(s.salesVat));
+  el('may-k-sales-net', fmt(s.salesNet));
+  el('may-k-diners', s.diners.toLocaleString('he-IL'));
+  el('may-k-avg', 'ממוצע: ₪'+Math.round(s.salesVat/s.diners));
+  el('may-k-daily-avg', fmt(s.salesVat/31));
 
-  if(t==='may'){
-    el('may-k-diners', s.diners>0 ? s.diners.toLocaleString('he-IL') : '—');
-    el('may-k-avg', s.diners>0 ? 'ממוצע: ₪'+Math.round(s.salesVat/s.diners) : '—');
-    el('may-k-daily-avg', hasData ? fmt(s.salesVat/31) : '—');
-  } else {
-    el('jun-k-diners', s.diners>0 ? s.diners.toLocaleString('he-IL') : '—');
-    el('jun-k-avg', s.diners>0 ? 'ממוצע: ₪'+Math.round(s.salesVat/s.diners) : '—');
-    const days = new Date().getDate();
-    el('jun-k-days', days);
-    el('jun-k-avg', hasData ? 'ממוצע: ₪'+Math.round(s.salesVat/days) : 'ממוצע: —');
-  }
+  el('may-k-labor', fmt(s.labor));
+  el('may-k-labor-pct', lp.toFixed(1)+'% ממכירות');
+  barW('may-bar-labor', lp/50*100);
 
-  // KPI row 2
-  el(t+'-k-labor',     (s.labor||0)>0 ? fmt(s.labor) : '—');
-  el(t+'-k-labor-pct', lp>0 ? lp.toFixed(1)+'% ממכירות' : 'ממתין');
-  barW(t+'-bar-labor', lp/50);
-  el(t+'-k-food',      (s.food||0)>0 ? fmt(s.food) : '—');
-  el(t+'-k-food-pct',  fp>0 ? fp.toFixed(1)+'% ממכירות' : 'ממתין');
-  barW(t+'-bar-food', fp/50);
-  el(t+'-k-wolt',      woltComm>0 ? fmt(woltComm) : '—');
-  el(t+'-k-wolt-pct',  wp>0 ? wp.toFixed(1)+'% ממכירות' : 'ממתין');
-  barW(t+'-bar-wolt', wp/15);
-  el(t+'-k-total-pct', tp>0 ? tp.toFixed(1)+'%' : '—');
-  barW(t+'-bar-total', tp/80);
+  el('may-k-food', fmt(s.food));
+  el('may-k-food-pct', fp.toFixed(1)+'% ממכירות');
+  barW('may-bar-food', fp/50*100);
 
-  if(t==='may'){
-    // May: static display rows
-    el('may-cr-labor',      (s.labor||0)>0 ? fmtFull(s.labor) : '—');
-    el('may-cr-food',       (s.food||0)>0 ? fmtFull(s.food)   : '—');
-    el('may-cr-wolt-sales', (s.wolt||0)>0 ? fmtFull(s.wolt)   : '—');
-    el('may-cr-wolt-comm',  woltComm>0 ? fmtFull(woltComm)     : '—');
-    el('may-cr-total',      ((s.labor||0)+(s.food||0)+woltComm)>0 ? fmtFull((s.labor||0)+(s.food||0)+woltComm) : '—');
-    // Wolt % detail
-    if(t+'-wolt-pct-of-sales') el('may-wolt-pct-of-sales', s.salesVat>0&&woltComm>0 ? (woltComm/s.salesVat*100).toFixed(1)+'% ממכירות' : '—');
-    // Suppliers
-    const grid = document.getElementById('may-sup-grid');
-    if(grid){
-      grid.innerHTML = MAY_SUPPLIERS.map(v=>`
-        <div class="sup-box">
-          <div class="sl">${v.name}</div>
-          <div class="sv">₪${v.net.toLocaleString('he-IL')}</div>
-          <div class="sc">${s.food>0?((v.net/s.food)*100).toFixed(1)+'% מהמזון':'—'}</div>
-        </div>`).join('');
-    }
-  } else {
-    // June: editable + wolt detail
-    el('jun-cr-food',  (s.food||0)>0 ? fmtFull(s.food) : '—');
-    el('jun-cr-total', ((s.labor||0)+(s.food||0)+woltComm)>0 ? fmtFull((s.labor||0)+(s.food||0)+woltComm) : '—');
-    el('jun-wolt-sales',       (s.wolt||0)>0 ? fmtFull(s.wolt) : '—');
-    el('jun-wolt-commission',  woltComm>0 ? fmtFull(woltComm)   : '—');
-    el('jun-wolt-pct-of-sales', s.salesVat>0&&woltComm>0 ? (woltComm/s.salesVat*100).toFixed(1)+'% ממכירות' : '—');
-    // Pre-fill inputs
-    inp('jun-labor-input', s.labor||'');
-    inp('jun-wolt-input',  s.wolt||'');
+  el('may-k-wolt', fmt(wc));
+  el('may-k-wolt-pct', wp.toFixed(1)+'% ממכירות');
+  barW('may-bar-wolt', wp/15*100);
+
+  el('may-k-total-pct', tp.toFixed(1)+'%');
+  barW('may-bar-total', tp/80*100);
+
+  el('may-cr-labor', fmtFull(s.labor));
+  el('may-cr-food', fmtFull(s.food));
+  el('may-cr-wolt-comm', fmtFull(wc));
+  el('may-cr-total', fmtFull(s.labor+s.food+wc));
+
+  el('may-wolt-sales', fmtFull(s.wolt));
+  el('may-wolt-commission', fmtFull(wc));
+  el('may-wolt-pct-of-sales', (wc/s.salesVat*100).toFixed(1)+'% ממכירות');
+
+  el('may-last-upd', 'עדכון: '+new Date(s.lastUpdated).toLocaleString('he-IL'));
+
+  const grid = document.getElementById('may-sup-grid');
+  if(grid){
+    grid.innerHTML = s.vendors.map(v=>
+      '<div class="sup-box"><div class="sl">'+v.name+'</div><div class="sv">₪'+v.net.toLocaleString('he-IL')+'</div><div class="sc">'+((v.net/s.food)*100).toFixed(1)+'% מהמזון</div></div>'
+    ).join('');
   }
 }
+
+function renderJun(){
+  const s = S.jun;
+  const wc = Math.round((s.wolt||0)*0.24);
+  const hasData = s.salesVat > 0;
+  const lp = hasData && s.salesNet>0 ? (s.labor||0)/s.salesNet*100 : 0;
+  const fp = hasData && s.salesNet>0 ? (s.food||0)/s.salesNet*100  : 0;
+  const wp = hasData && s.salesNet>0 ? wc/s.salesNet*100            : 0;
+  const tp = lp+fp+wp;
+  const days = new Date().getDate();
+
+  const heroEl = document.getElementById('jun-hero');
+  if(hasData){
+    heroEl.className = 'hero '+(tp>0?(tp<63?'green':tp<68?'orange':'red'):'gray');
+    el('jun-total-pct', tp>0 ? tp.toFixed(1)+'%' : 'MTD');
+    el('jun-hero-sub', 'מזון '+fp.toFixed(1)+'% | שכר '+lp.toFixed(1)+'% | Wolt '+wp.toFixed(1)+'%');
+    el('jun-hero-emoji', tp>0?(tp<63?'🟢':tp<68?'🟡':'🔴'):'📊');
+  } else {
+    heroEl.className = 'hero gray';
+    el('jun-total-pct', '—');
+    el('jun-hero-sub', 'ממתין לנתונים');
+    el('jun-hero-emoji', '⏳');
+  }
+
+  el('jun-k-sales-vat', hasData ? fmt(s.salesVat) : '—');
+  el('jun-k-sales-net', hasData ? fmt(s.salesNet)  : '—');
+  el('jun-k-days', days);
+  el('jun-k-avg', hasData ? 'ממוצע: ₪'+Math.round(s.salesVat/days) : 'ממוצע: —');
+  el('jun-k-updated', s.lastUpdated ? new Date(s.lastUpdated).toLocaleDateString('he-IL') : '—');
+
+  el('jun-k-labor',     (s.labor||0)>0 ? fmt(s.labor) : '—');
+  el('jun-k-labor-pct', lp>0 ? lp.toFixed(1)+'% ממכירות' : 'ממתין');
+  barW('jun-bar-labor', lp/50*100);
+
+  el('jun-k-food',     (s.food||0)>0 ? fmt(s.food) : '—');
+  el('jun-k-food-pct', fp>0 ? fp.toFixed(1)+'% ממכירות' : 'ממתין');
+  barW('jun-bar-food', fp/50*100);
+
+  el('jun-k-wolt',     wc>0 ? fmt(wc) : '—');
+  el('jun-k-wolt-pct', wp>0 ? wp.toFixed(1)+'% ממכירות' : 'ממתין');
+  barW('jun-bar-wolt', wp/15*100);
+
+  el('jun-k-total-pct', tp>0 ? tp.toFixed(1)+'%' : '—');
+  barW('jun-bar-total', tp/80*100);
+
+  el('jun-cr-labor',     (s.labor||0)>0 ? fmtFull(s.labor) : '—');
+  el('jun-cr-food',      (s.food||0)>0  ? fmtFull(s.food)  : '—');
+  el('jun-cr-wolt-comm', wc>0 ? fmtFull(wc) : '—');
+  el('jun-cr-total',     ((s.labor||0)+(s.food||0)+wc)>0 ? fmtFull((s.labor||0)+(s.food||0)+wc) : '—');
+
+  el('jun-wolt-sales',         (s.wolt||0)>0 ? fmtFull(s.wolt) : '—');
+  el('jun-wolt-commission',    wc>0 ? fmtFull(wc) : '—');
+  el('jun-wolt-pct-of-sales',  hasData&&wc>0 ? (wc/s.salesVat*100).toFixed(1)+'% ממכירות' : '—');
+
+  el('jun-last-upd', s.lastUpdated ? 'עדכון: '+new Date(s.lastUpdated).toLocaleString('he-IL') : '');
+
+  if(s.labor) inp('jun-labor-input', s.labor);
+  if(s.wolt)  inp('jun-wolt-input',  s.wolt);
+  if(s.food)  inp('jun-food-input',  s.food);
+  if(s.salesVat) inp('jun-sales-input', s.salesVat);
+}
+
+function renderAll(){ renderMay(); renderJun(); }
 
 function switchTab(t){
   activeTab = t;
@@ -527,97 +466,68 @@ function switchTab(t){
   el('h-month', t==='jun' ? 'יוני 2026 — MTD' : 'מאי 2026');
 }
 
+function onLaborChange(v){ S.jun.labor=parseFloat(v)||0; renderJun(); }
+function onWoltChange(v) { S.jun.wolt=parseFloat(v)||0;  renderJun(); }
+function onFoodChange(v) { S.jun.food=parseFloat(v)||0;  renderJun(); }
+function onSalesChange(v){ S.jun.salesVat=parseFloat(v)||0; S.jun.salesNet=Math.round(S.jun.salesVat/1.18); renderJun(); }
+
+async function loadFromRosa(){
+  try {
+    const r = await fetch(ROSA+'/solikaSync', {cache:'no-store'});
+    if(!r.ok) return;
+    const raw = await r.json();
+    const d = raw.data || raw;
+    // May
+    if(d.einstein_sales_vat) S.may.salesVat = d.einstein_sales_vat;
+    if(d.einstein_sales_net) S.may.salesNet = d.einstein_sales_net;
+    if(d.einstein_labor)     S.may.labor    = d.einstein_labor;
+    if(d.einstein_food)      S.may.food     = d.einstein_food;
+    if(d.einstein_wolt_vat)  S.may.wolt     = d.einstein_wolt_vat;
+    if(d.last_updated)       S.may.lastUpdated = d.last_updated;
+    if(d.einstein_vendors){
+      try{ S.may.vendors = JSON.parse(d.einstein_vendors); }catch(e){}
+    }
+    renderAll();
+  } catch(e){ /* use static data */ }
+
+  // Try June month param
+  try {
+    const jr = await fetch(ROSA+'/solikaSync?month=2026-06', {cache:'no-store'});
+    if(jr.ok){
+      const jraw = await jr.json();
+      const jd = jraw.data || jraw;
+      if(jd.einstein_sales_vat) S.jun.salesVat = jd.einstein_sales_vat;
+      if(jd.einstein_sales_net) S.jun.salesNet = jd.einstein_sales_net;
+      if(jd.einstein_labor)     S.jun.labor    = jd.einstein_labor;
+      if(jd.einstein_food)      S.jun.food     = jd.einstein_food;
+      if(jd.einstein_wolt_vat)  S.jun.wolt     = jd.einstein_wolt_vat;
+      if(jd.last_updated)       S.jun.lastUpdated = jd.last_updated;
+      renderJun();
+    }
+  } catch(e){}
+}
+
+async function triggerSync(){
+  try {
+    await fetch(ROSA+'/solikaTriggerSync',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});
+    setTimeout(()=>loadFromRosa(), 4000);
+  } catch(e){}
+}
+
 function checkPW(){
   const v = document.getElementById('pw-input').value.trim().toUpperCase();
   if(CODES.includes(v)){
     document.getElementById('paywall').style.display='none';
     document.getElementById('app').style.display='block';
-    loadDashboard();
+    renderAll();
+    loadFromRosa();
   } else {
     document.getElementById('pw-err').textContent='קוד שגוי, נסה שוב';
-    setTimeout(()=>document.getElementById('pw-err').textContent='',2000);
+    setTimeout(()=>{ document.getElementById('pw-err').textContent=''; },2000);
   }
 }
 
-function showLoading(txt){
-  document.getElementById('loading').style.display='flex';
-  document.getElementById('loading-text').textContent=txt||'טוען נתונים...';
-}
-function hideLoading(){
-  document.getElementById('loading').style.display='none';
-}
-function showSyncError(msg){
-  document.getElementById('modal-msg').textContent=msg||'לא ניתן לטעון נתונים.';
-  document.getElementById('sync-modal').classList.add('show');
-}
-
-async function loadDashboard(){
-  showLoading('טוען נתוני אינשטיין...');
-  try {
-    const resp = await fetch(ROSA_URL+'/solikaSync');
-    if(!resp.ok) throw new Error('HTTP '+resp.status);
-    const raw  = await resp.json();
-    const d    = raw.data || raw;
-
-    // May data from entity
-    if(d.einstein_sales_vat)   S.may.salesVat = d.einstein_sales_vat;
-    if(d.einstein_sales_net)   S.may.salesNet = d.einstein_sales_net;
-    if(d.einstein_labor)       S.may.labor    = d.einstein_labor;
-    if(d.einstein_food)        S.may.food     = d.einstein_food;
-    if(d.einstein_wolt_vat)    S.may.wolt     = d.einstein_wolt_vat;
-
-    if(d.last_updated){
-      const dt = new Date(d.last_updated);
-      el('may-last-upd','עדכון אחרון: '+dt.toLocaleString('he-IL'));
-    }
-
-    // June: try to get from sync?month=2026-06
-    try {
-      const jr = await fetch(ROSA_URL+'/solikaSync?month=2026-06');
-      if(jr.ok){
-        const jd = (await jr.json()).data || (await jr.json());
-        if(jd.einstein_sales_vat) S.jun.salesVat = jd.einstein_sales_vat;
-        if(jd.einstein_sales_net) S.jun.salesNet = jd.einstein_sales_net;
-        if(jd.einstein_labor)     S.jun.labor    = jd.einstein_labor;
-        if(jd.einstein_food)      S.jun.food     = jd.einstein_food;
-        if(jd.einstein_wolt_vat)  S.jun.wolt     = jd.einstein_wolt_vat;
-        if(jd.last_updated){ el('jun-last-upd','עדכון אחרון: '+new Date(jd.last_updated).toLocaleString('he-IL')); }
-      }
-    } catch(e){ /* june not ready yet */ }
-
-  } catch(e){
-    showSyncError('שגיאה: '+e.message);
-  }
-
-  renderTab('may');
-  renderTab('jun');
-  switchTab('jun');
-  hideLoading();
-}
-
-function onLaborChange(val, tab){
-  tab = tab || activeTab;
-  S[tab].labor = parseFloat(val)||0;
-  renderTab(tab);
-}
-function onWoltChange(val, tab){
-  tab = tab || activeTab;
-  S[tab].wolt = parseFloat(val)||0;
-  renderTab(tab);
-}
-
-async function triggerSync(){
-  const btn=document.getElementById('sync-btn');
-  btn.disabled=true; btn.innerHTML='<span>⏳</span> מסנכרן...';
-  document.getElementById('sync-modal').classList.remove('show');
-  try {
-    await fetch(ROSA_URL+'/solikaTriggerSync',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});
-    setTimeout(()=>loadDashboard(),3000);
-  } catch(e){}
-  setTimeout(()=>{ btn.disabled=false; btn.innerHTML='<span>🔄</span> סנכרן עכשיו'; },8000);
-}
-
-document.getElementById('pw-input').addEventListener('keydown',e=>{ if(e.key==='Enter') checkPW(); });
+document.getElementById('pw-input').addEventListener('keydown', e=>{ if(e.key==='Enter') checkPW(); });
 </script>
 </body>
 </html>
