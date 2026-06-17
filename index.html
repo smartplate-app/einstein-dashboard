@@ -131,30 +131,35 @@ body.light .pw-sub { color:rgba(0,0,0,0.4); }
 body.light .pw-input { background:rgba(0,0,0,0.05); border-color:rgba(0,0,0,0.15); color:#1a1a2e; }
 body.light .header { background:#ffffff; border-bottom:1px solid rgba(0,0,0,0.08); box-shadow:0 2px 8px rgba(0,0,0,0.06); }
 body.light .h-month { color:rgba(0,0,0,0.4); }
+body.light .h-branch span { color:#0369a1; }
 body.light .tabs-bar { background:#ffffff; border-bottom:1px solid rgba(0,0,0,0.08); }
+body.light .tab-btn.active { color:#0369a1; border-bottom-color:#0ea5e9 !important; background:rgba(14,165,233,0.06); }
 body.light .tab-btn { color:rgba(0,0,0,0.35); }
-body.light .tab-btn.active { color:#1a1a2e; background:rgba(124,58,237,0.06); }
+body.light .tab-btn.active { color:#1a1a2e; background:rgba(14,165,233,0.08); border-bottom-color:#0ea5e9 !important; }
 body.light .kpi { background:#ffffff; box-shadow:0 1px 4px rgba(0,0,0,0.06); }
+body.light .kpi.purple { border-top-color:#0ea5e9; }
+body.light .kpi.violet { border-top-color:#38bdf8; }
+body.light .kpi.indigo { border-top-color:#0284c7; }
 body.light .kpi-lbl { color:rgba(0,0,0,0.35); }
 body.light .kpi-val { color:#1a1a2e; }
 body.light .kpi-sub { color:rgba(0,0,0,0.3); }
 body.light .section { background:#ffffff; box-shadow:0 1px 4px rgba(0,0,0,0.06); }
 body.light .s-title { color:rgba(0,0,0,0.3); }
 body.light .cr { background:rgba(0,0,0,0.03); }
-body.light .cr.total-row { background:rgba(124,58,237,0.08); }
+body.light .cr.total-row { background:rgba(14,165,233,0.08); }
 body.light .cr .l { color:rgba(0,0,0,0.6); }
 body.light .cr .src { color:rgba(0,0,0,0.25); }
 body.light .cr .v { color:#1a1a2e; }
-body.light .cr.total-row .l { color:#1a1a2e; }
+body.light .cr.total-row .l { color:#0369a1; }
 body.light .sup-box { background:rgba(0,0,0,0.04); }
 body.light .sup-box .sv { color:#1a1a2e; }
 body.light .sup-box .sl { color:rgba(0,0,0,0.4); }
 body.light .sup-box .sc { color:rgba(0,0,0,0.25); }
-body.light .note-box { background:rgba(124,58,237,0.05); border-color:rgba(124,58,237,0.15); color:rgba(0,0,0,0.45); }
+body.light .note-box { background:rgba(14,165,233,0.05); border-color:rgba(14,165,233,0.15); color:rgba(0,0,0,0.45); }
 body.light .last-upd { color:rgba(0,0,0,0.25); }
 body.light .edit-row { background:rgba(0,0,0,0.03); }
 body.light .edit-row .l { color:rgba(0,0,0,0.6); }
-body.light .edt { background:rgba(0,0,0,0.05); border-color:rgba(124,58,237,0.3); color:#1a1a2e; }
+body.light .edt { background:rgba(0,0,0,0.05); border-color:rgba(14,165,233,0.4); color:#1a1a2e; }
 body.light .sup-cmp-hdr { color:rgba(0,0,0,0.3); }
 body.light .sup-cmp-row { background:rgba(0,0,0,0.03); }
 body.light .sup-cmp-row.red-row { background:rgba(239,68,68,0.06); }
@@ -838,7 +843,7 @@ function updateThemeBtn(isLight){
   if(!btn) return;
   if(isLight){
     btn.textContent = '🌙 מצב לילה';
-    btn.style.background = '#374151';
+    btn.style.background = '#0ea5e9';
   } else {
     btn.textContent = '☀️ מצב יום';
     btn.style.background = '#6d28d9';
