@@ -121,6 +121,52 @@ body { font-family: system-ui, -apple-system, sans-serif; background:#0d0d1a; co
 .sup-cmp-badge.white { color:rgba(255,255,255,0.4); }
 .sup-cmp-legend { display:flex; gap:12px; margin-top:10px; padding-top:8px; border-top:1px solid rgba(255,255,255,0.06); font-size:9px; color:rgba(255,255,255,0.3); }
 
+
+/* LIGHT MODE */
+body.light { background:#f0f2f8; color:#1a1a2e; }
+body.light #paywall { background:#f0f2f8; }
+body.light .pw-box { background:#ffffff; border-color:rgba(0,0,0,0.1); }
+body.light .pw-title { color:#1a1a2e; }
+body.light .pw-sub { color:rgba(0,0,0,0.4); }
+body.light .pw-input { background:rgba(0,0,0,0.05); border-color:rgba(0,0,0,0.15); color:#1a1a2e; }
+body.light .header { background:#ffffff; border-bottom:1px solid rgba(0,0,0,0.08); box-shadow:0 2px 8px rgba(0,0,0,0.06); }
+body.light .h-month { color:rgba(0,0,0,0.4); }
+body.light .tabs-bar { background:#ffffff; border-bottom:1px solid rgba(0,0,0,0.08); }
+body.light .tab-btn { color:rgba(0,0,0,0.35); }
+body.light .tab-btn.active { color:#1a1a2e; background:rgba(124,58,237,0.06); }
+body.light .kpi { background:#ffffff; box-shadow:0 1px 4px rgba(0,0,0,0.06); }
+body.light .kpi-lbl { color:rgba(0,0,0,0.35); }
+body.light .kpi-val { color:#1a1a2e; }
+body.light .kpi-sub { color:rgba(0,0,0,0.3); }
+body.light .section { background:#ffffff; box-shadow:0 1px 4px rgba(0,0,0,0.06); }
+body.light .s-title { color:rgba(0,0,0,0.3); }
+body.light .cr { background:rgba(0,0,0,0.03); }
+body.light .cr.total-row { background:rgba(124,58,237,0.08); }
+body.light .cr .l { color:rgba(0,0,0,0.6); }
+body.light .cr .src { color:rgba(0,0,0,0.25); }
+body.light .cr .v { color:#1a1a2e; }
+body.light .cr.total-row .l { color:#1a1a2e; }
+body.light .sup-box { background:rgba(0,0,0,0.04); }
+body.light .sup-box .sv { color:#1a1a2e; }
+body.light .sup-box .sl { color:rgba(0,0,0,0.4); }
+body.light .sup-box .sc { color:rgba(0,0,0,0.25); }
+body.light .note-box { background:rgba(124,58,237,0.05); border-color:rgba(124,58,237,0.15); color:rgba(0,0,0,0.45); }
+body.light .last-upd { color:rgba(0,0,0,0.25); }
+body.light .edit-row { background:rgba(0,0,0,0.03); }
+body.light .edit-row .l { color:rgba(0,0,0,0.6); }
+body.light .edt { background:rgba(0,0,0,0.05); border-color:rgba(124,58,237,0.3); color:#1a1a2e; }
+body.light .sup-cmp-hdr { color:rgba(0,0,0,0.3); }
+body.light .sup-cmp-row { background:rgba(0,0,0,0.03); }
+body.light .sup-cmp-row.red-row { background:rgba(239,68,68,0.06); }
+body.light .sup-cmp-row.orange-row { background:rgba(249,115,22,0.06); }
+body.light .sup-cmp-row.green-row { background:rgba(34,197,94,0.04); }
+body.light .sup-cmp-name { color:rgba(0,0,0,0.8); }
+body.light .sup-cmp-val { color:#1a1a2e; }
+body.light .sup-cmp-val.muted { color:rgba(0,0,0,0.4); }
+body.light .sup-cmp-legend { color:rgba(0,0,0,0.3); border-top-color:rgba(0,0,0,0.06); }
+body.light .bar { background:rgba(0,0,0,0.08); }
+body.light .wolt-card { background:rgba(255,107,53,0.06); border-color:rgba(255,107,53,0.2); }
+
 </style>
 </head>
 <body>
@@ -151,7 +197,10 @@ body { font-family: system-ui, -apple-system, sans-serif; background:#0d0d1a; co
         <div class="h-month" id="h-month">יוני 2026 — MTD</div>
       </div>
     </div>
+    <div style="display:flex;gap:8px;align-items:center;">
+    <button class="sync-btn" id="theme-btn" onclick="toggleTheme()" style="background:#374151;">🌙 Dark</button>
     <button class="sync-btn" onclick="triggerSync()">🔄 סנכרן</button>
+  </div>
   </div>
 
   <!-- TABS -->
@@ -777,6 +826,33 @@ function checkPW(){
 }
 
 document.getElementById('pw-input').addEventListener('keydown', e=>{ if(e.key==='Enter') checkPW(); });
+
+function toggleTheme(){
+  const isLight = document.body.classList.toggle('light');
+  const btn = document.getElementById('theme-btn');
+  if(isLight){
+    btn.textContent = '🌙 Dark';
+    btn.style.background = '#6d28d9';
+    localStorage.setItem('einstein_theme','light');
+  } else {
+    btn.textContent = '☀️ Light';
+    btn.style.background = '#374151';
+    localStorage.setItem('einstein_theme','dark');
+  }
+}
+
+// Restore theme on load
+(function(){
+  const t = localStorage.getItem('einstein_theme');
+  if(t === 'light'){
+    document.body.classList.add('light');
+    window.addEventListener('DOMContentLoaded', function(){
+      const btn = document.getElementById('theme-btn');
+      if(btn){ btn.textContent='🌙 Dark'; btn.style.background='#6d28d9'; }
+    });
+  }
+})();
+
 </script>
 </body>
 </html>
