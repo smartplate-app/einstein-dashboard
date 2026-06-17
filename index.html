@@ -314,7 +314,6 @@ const S = {
   may: {
     salesVat: 622032, salesNet: 527146,
     labor: 134860.17, food: 197741, wolt: 196973.7,
-    diners: 0,
     vendors: [
       {name:'חמישה קצבים',net:23590},{name:'מאסטרפוד',net:21477},
       {name:'מילועוף',net:19423},{name:'מ.ר כלים',net:15877},
@@ -472,20 +471,26 @@ function onFoodChange(v) { S.jun.food=parseFloat(v)||0;  renderJun(); }
 function onSalesChange(v){ S.jun.salesVat=parseFloat(v)||0; S.jun.salesNet=Math.round(S.jun.salesVat/1.18); renderJun(); }
 
 async function loadFromRosa(){
-  // May data is pre-loaded in state (solikaSync doesn't support month param)
+  // May data is pre-loaded from verified entity data — do NOT override from Rosa
 
-  // Load JUNE data
+  // Load JUNE data from Rosa — only apply if Rosa has BETTER data than baked-in
   try {
     const jr = await fetch(ROSA+'/solikaSync?month=2026-06', {cache:'no-store'});
     if(jr.ok){
       const jraw = await jr.json();
       const jd = jraw.einstein || {};
-      if(jd.sales_vat)   S.jun.salesVat   = jd.sales_vat;
-      if(jd.sales_net)   S.jun.salesNet   = jd.sales_net;
-      if(jd.labor)       S.jun.labor      = jd.labor;
-      if(jd.food)        S.jun.food       = jd.food;
-      if(jd.wolt_vat)    S.jun.wolt       = jd.wolt_vat;
-      if(jraw.last_updated) S.jun.lastUpdated = jraw.last_updated;
+      // Only override if Rosa has MORE sales data than what's baked in
+      const rosaVat = jd.sales_vat || 0;
+      if(rosaVat > S.jun.salesVat) {
+        if(jd.sales_vat)   S.jun.salesVat   = jd.sales_vat;
+        if(jd.sales_net)   S.jun.salesNet   = jd.sales_net;
+        if(jd.labor)       S.jun.labor      = jd.labor;
+        if(jd.food)        S.jun.food       = jd.food;
+        if(jd.wolt_vat)    S.jun.wolt       = jd.wolt_vat;
+        if(jraw.last_updated) S.jun.lastUpdated = jraw.last_updated;
+      }
+      // Always take food if Rosa has more (food updates independently)
+      if((jd.food||0) > (S.jun.food||0)) S.jun.food = jd.food;
     }
   } catch(e){}
 
