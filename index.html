@@ -158,7 +158,7 @@ body { font-family: system-ui, -apple-system, sans-serif; background:#0d0d1a; co
       <div class="kpi-grid">
         <div class="kpi purple"><div class="kpi-lbl">מכירות ברוטו</div><div class="kpi-val" id="jun-k-sales-vat">—</div><div class="kpi-sub">כולל מע"מ</div></div>
         <div class="kpi violet"><div class="kpi-lbl">מכירות נטו</div><div class="kpi-val" id="jun-k-sales-net">—</div><div class="kpi-sub">ללא מע"מ</div></div>
-        <div class="kpi cyan"><div class="kpi-lbl">ימים</div><div class="kpi-val" id="jun-k-days">—</div><div class="kpi-sub" id="jun-k-avg">ממוצע יומי</div></div>
+        <div class="kpi cyan"><div class="kpi-lbl">ממוצע יומי</div><div class="kpi-val" id="jun-k-daily-avg">—</div><div class="kpi-sub" id="jun-k-days-sub">מתוך 30 ימים</div></div>
         <div class="kpi green"><div class="kpi-lbl">עודכן</div><div class="kpi-val" style="font-size:12px;" id="jun-k-updated">—</div><div class="kpi-sub">עדכון אחרון</div></div>
       </div>
 
@@ -247,8 +247,8 @@ body { font-family: system-ui, -apple-system, sans-serif; background:#0d0d1a; co
       <div class="kpi-grid">
         <div class="kpi purple"><div class="kpi-lbl">מכירות ברוטו</div><div class="kpi-val" id="may-k-sales-vat">—</div><div class="kpi-sub">כולל מע"מ</div></div>
         <div class="kpi violet"><div class="kpi-lbl">מכירות נטו</div><div class="kpi-val" id="may-k-sales-net">—</div><div class="kpi-sub">ללא מע"מ</div></div>
-        <div class="kpi cyan"><div class="kpi-lbl">סועדים</div><div class="kpi-val" id="may-k-diners">—</div><div class="kpi-sub" id="may-k-avg">ממוצע</div></div>
-        <div class="kpi green"><div class="kpi-lbl">ממוצע יומי</div><div class="kpi-val" id="may-k-daily-avg">—</div><div class="kpi-sub">31 ימים</div></div>
+        <div class="kpi cyan"><div class="kpi-lbl">מכירות Wolt</div><div class="kpi-val" id="may-k-wolt-sales">—</div><div class="kpi-sub" id="may-k-wolt-pct-sales">—% מברוטו</div></div>
+        <div class="kpi green"><div class="kpi-lbl">ממוצע יומי</div><div class="kpi-val" id="may-k-daily-avg">—</div><div class="kpi-sub" id="may-k-days-sub">31 ימים</div></div>
       </div>
 
       <div class="kpi-grid">
@@ -313,8 +313,8 @@ const ROSA  = 'https://rosa-6d8ebb9e.base44.app/api/functions';
 const S = {
   may: {
     salesVat: 622032, salesNet: 527146,
-    labor: 134860, food: 197741, wolt: 196974,
-    diners: 2680,
+    labor: 134860.17, food: 197741, wolt: 196973.7,
+    diners: 0,
     vendors: [
       {name:'חמישה קצבים',net:23590},{name:'מאסטרפוד',net:21477},
       {name:'מילועוף',net:19423},{name:'מ.ר כלים',net:15877},
@@ -325,10 +325,9 @@ const S = {
     lastUpdated: '2026-06-02T00:10:00'
   },
   jun: {
-    salesVat: 17918, salesNet: 15185,
-    labor: 6750, food: 0, wolt: 0,
-    diners: 0,
-    lastUpdated: '2026-06-02T22:27:00'
+    salesVat: 308355.5, salesNet: 261318.22,
+    labor: 75579, food: 128604.55, wolt: 101101,
+    lastUpdated: '2026-06-17T16:00:00'
   }
 };
 
@@ -345,7 +344,7 @@ function renderMay(){
   const wc = Math.round(s.wolt*0.24);
   const lp = (s.labor/s.salesNet*100);
   const fp = (s.food/s.salesNet*100);
-  const wp = (wc/s.salesNet*100);
+  const wp = (wc/s.salesVat*100);
   const tp = lp+fp+wp;
 
   const heroEl = document.getElementById('may-hero');
@@ -356,20 +355,21 @@ function renderMay(){
 
   el('may-k-sales-vat', fmt(s.salesVat));
   el('may-k-sales-net', fmt(s.salesNet));
-  el('may-k-diners', s.diners.toLocaleString('he-IL'));
-  el('may-k-avg', 'ממוצע: ₪'+Math.round(s.salesVat/s.diners));
+  el('may-k-wolt-sales', fmt(s.wolt));
+  el('may-k-wolt-pct-sales', (s.wolt/s.salesVat*100).toFixed(1)+'% מברוטו');
   el('may-k-daily-avg', fmt(s.salesVat/31));
+  el('may-k-days-sub', '31 ימים (חודש מלא)');
 
   el('may-k-labor', fmt(s.labor));
-  el('may-k-labor-pct', lp.toFixed(1)+'% ממכירות');
+  el('may-k-labor-pct', lp.toFixed(1)+'% מנטו');
   barW('may-bar-labor', lp/50*100);
 
   el('may-k-food', fmt(s.food));
-  el('may-k-food-pct', fp.toFixed(1)+'% ממכירות');
+  el('may-k-food-pct', fp.toFixed(1)+'% מנטו');
   barW('may-bar-food', fp/50*100);
 
   el('may-k-wolt', fmt(wc));
-  el('may-k-wolt-pct', wp.toFixed(1)+'% ממכירות');
+  el('may-k-wolt-pct', wp.toFixed(1)+'% מברוטו');
   barW('may-bar-wolt', wp/15*100);
 
   el('may-k-total-pct', tp.toFixed(1)+'%');
@@ -400,7 +400,7 @@ function renderJun(){
   const hasData = s.salesVat > 0;
   const lp = hasData && s.salesNet>0 ? (s.labor||0)/s.salesNet*100 : 0;
   const fp = hasData && s.salesNet>0 ? (s.food||0)/s.salesNet*100  : 0;
-  const wp = hasData && s.salesNet>0 ? wc/s.salesNet*100            : 0;
+  const wp = hasData && s.salesVat>0 ? wc/s.salesVat*100           : 0;
   const tp = lp+fp+wp;
   const days = new Date().getDate();
 
@@ -408,7 +408,7 @@ function renderJun(){
   if(hasData){
     heroEl.className = 'hero '+(tp>0?(tp<63?'green':tp<68?'orange':'red'):'gray');
     el('jun-total-pct', tp>0 ? tp.toFixed(1)+'%' : 'MTD');
-    el('jun-hero-sub', 'מזון '+fp.toFixed(1)+'% | שכר '+lp.toFixed(1)+'% | Wolt '+wp.toFixed(1)+'%');
+    el('jun-hero-sub', 'שכר '+lp.toFixed(1)+'% (נטו) | מזון '+fp.toFixed(1)+'% (נטו) | Wolt '+wp.toFixed(1)+'% (ברוטו)');
     el('jun-hero-emoji', tp>0?(tp<63?'🟢':tp<68?'🟡':'🔴'):'📊');
   } else {
     heroEl.className = 'hero gray';
@@ -419,20 +419,20 @@ function renderJun(){
 
   el('jun-k-sales-vat', hasData ? fmt(s.salesVat) : '—');
   el('jun-k-sales-net', hasData ? fmt(s.salesNet)  : '—');
-  el('jun-k-days', days);
-  el('jun-k-avg', hasData ? 'ממוצע: ₪'+Math.round(s.salesVat/days) : 'ממוצע: —');
+  el('jun-k-daily-avg', hasData ? fmt(s.salesVat/days) : '—');
+  el('jun-k-days-sub', days + ' ימים מתוך 30');
   el('jun-k-updated', s.lastUpdated ? new Date(s.lastUpdated).toLocaleDateString('he-IL') : '—');
 
   el('jun-k-labor',     (s.labor||0)>0 ? fmt(s.labor) : '—');
-  el('jun-k-labor-pct', lp>0 ? lp.toFixed(1)+'% ממכירות' : 'ממתין');
+  el('jun-k-labor-pct', lp>0 ? lp.toFixed(1)+'% מנטו' : 'ממתין');
   barW('jun-bar-labor', lp/50*100);
 
   el('jun-k-food',     (s.food||0)>0 ? fmt(s.food) : '—');
-  el('jun-k-food-pct', fp>0 ? fp.toFixed(1)+'% ממכירות' : 'ממתין');
+  el('jun-k-food-pct', fp>0 ? fp.toFixed(1)+'% מנטו' : 'ממתין');
   barW('jun-bar-food', fp/50*100);
 
   el('jun-k-wolt',     wc>0 ? fmt(wc) : '—');
-  el('jun-k-wolt-pct', wp>0 ? wp.toFixed(1)+'% ממכירות' : 'ממתין');
+  el('jun-k-wolt-pct', wp>0 ? wp.toFixed(1)+'% מברוטו' : 'ממתין');
   barW('jun-bar-wolt', wp/15*100);
 
   el('jun-k-total-pct', tp>0 ? tp.toFixed(1)+'%' : '—');
@@ -472,39 +472,24 @@ function onFoodChange(v) { S.jun.food=parseFloat(v)||0;  renderJun(); }
 function onSalesChange(v){ S.jun.salesVat=parseFloat(v)||0; S.jun.salesNet=Math.round(S.jun.salesVat/1.18); renderJun(); }
 
 async function loadFromRosa(){
-  try {
-    const r = await fetch(ROSA+'/solikaSync', {cache:'no-store'});
-    if(!r.ok) return;
-    const raw = await r.json();
-    const d = raw.data || raw;
-    // May
-    if(d.einstein_sales_vat) S.may.salesVat = d.einstein_sales_vat;
-    if(d.einstein_sales_net) S.may.salesNet = d.einstein_sales_net;
-    if(d.einstein_labor)     S.may.labor    = d.einstein_labor;
-    if(d.einstein_food)      S.may.food     = d.einstein_food;
-    if(d.einstein_wolt_vat)  S.may.wolt     = d.einstein_wolt_vat;
-    if(d.last_updated)       S.may.lastUpdated = d.last_updated;
-    if(d.einstein_vendors){
-      try{ S.may.vendors = JSON.parse(d.einstein_vendors); }catch(e){}
-    }
-    renderAll();
-  } catch(e){ /* use static data */ }
+  // May data is pre-loaded in state (solikaSync doesn't support month param)
 
-  // Try June month param
+  // Load JUNE data
   try {
     const jr = await fetch(ROSA+'/solikaSync?month=2026-06', {cache:'no-store'});
     if(jr.ok){
       const jraw = await jr.json();
-      const jd = jraw.data || jraw;
-      if(jd.einstein_sales_vat) S.jun.salesVat = jd.einstein_sales_vat;
-      if(jd.einstein_sales_net) S.jun.salesNet = jd.einstein_sales_net;
-      if(jd.einstein_labor)     S.jun.labor    = jd.einstein_labor;
-      if(jd.einstein_food)      S.jun.food     = jd.einstein_food;
-      if(jd.einstein_wolt_vat)  S.jun.wolt     = jd.einstein_wolt_vat;
-      if(jd.last_updated)       S.jun.lastUpdated = jd.last_updated;
-      renderJun();
+      const jd = jraw.einstein || {};
+      if(jd.sales_vat)   S.jun.salesVat   = jd.sales_vat;
+      if(jd.sales_net)   S.jun.salesNet   = jd.sales_net;
+      if(jd.labor)       S.jun.labor      = jd.labor;
+      if(jd.food)        S.jun.food       = jd.food;
+      if(jd.wolt_vat)    S.jun.wolt       = jd.wolt_vat;
+      if(jraw.last_updated) S.jun.lastUpdated = jraw.last_updated;
     }
   } catch(e){}
+
+  renderAll();
 }
 
 async function triggerSync(){
