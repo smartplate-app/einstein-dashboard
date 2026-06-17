@@ -103,6 +103,24 @@ body { font-family: system-ui, -apple-system, sans-serif; background:#0d0d1a; co
 /* NOTE */
 .note-box { background:rgba(167,139,250,0.07); border:1px dashed rgba(167,139,250,0.2); border-radius:12px; padding:14px; margin-bottom:12px; font-size:11px; color:rgba(255,255,255,0.4); text-align:center; line-height:1.8; }
 .last-upd { font-size:10px; color:rgba(255,255,255,0.2); text-align:center; padding:10px 0 4px; }
+
+/* SUPPLIER COMPARISON TABLE */
+.sup-cmp-title { font-size:11px; font-weight:800; color:rgba(255,255,255,0.5); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:12px; padding-bottom:8px; border-bottom:1px solid rgba(255,255,255,0.07); }
+.sup-cmp-hdr { display:grid; grid-template-columns:1fr 70px 70px 60px; gap:4px; padding:6px 10px; font-size:9px; color:rgba(255,255,255,0.3); text-transform:uppercase; letter-spacing:0.8px; }
+.sup-cmp-row { display:grid; grid-template-columns:1fr 70px 70px 60px; gap:4px; padding:8px 10px; border-radius:8px; margin-bottom:4px; align-items:center; background:rgba(255,255,255,0.03); }
+.sup-cmp-row.red-row { background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.15); }
+.sup-cmp-row.orange-row { background:rgba(249,115,22,0.08); border:1px solid rgba(249,115,22,0.12); }
+.sup-cmp-row.green-row { background:rgba(34,197,94,0.06); border:1px solid rgba(34,197,94,0.1); }
+.sup-cmp-name { font-size:11px; color:rgba(255,255,255,0.8); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.sup-cmp-val { font-size:11px; font-weight:700; color:white; text-align:center; }
+.sup-cmp-val.muted { color:rgba(255,255,255,0.4); font-weight:400; }
+.sup-cmp-badge { font-size:10px; font-weight:800; text-align:center; border-radius:6px; padding:3px 6px; }
+.sup-cmp-badge.red { color:#ef4444; background:rgba(239,68,68,0.12); }
+.sup-cmp-badge.orange { color:#f97316; background:rgba(249,115,22,0.12); }
+.sup-cmp-badge.green { color:#22c55e; background:rgba(34,197,94,0.1); }
+.sup-cmp-badge.white { color:rgba(255,255,255,0.4); }
+.sup-cmp-legend { display:flex; gap:12px; margin-top:10px; padding-top:8px; border-top:1px solid rgba(255,255,255,0.06); font-size:9px; color:rgba(255,255,255,0.3); }
+
 </style>
 </head>
 <body>
@@ -226,6 +244,11 @@ body { font-family: system-ui, -apple-system, sans-serif; background:#0d0d1a; co
         </div>
       </div>
 
+
+      <div class="section">
+        <div class="s-title">📦 ניתוח ספקים — יוני vs מאי (לפי יומי ממוצע)</div>
+        <div id="jun-sup-compare"></div>
+      </div>
       <div class="note-box">יוני 2026 בתהליך — נתוני שכר ומזון יתעדכנו אוטומטית עם הסנכרון היומי</div>
       <div class="last-upd" id="jun-last-upd"></div>
     </div>
@@ -454,7 +477,114 @@ function renderJun(){
   if(s.salesVat) inp('jun-sales-input', s.salesVat);
 }
 
-function renderAll(){ renderMay(); renderJun(); }
+
+// ==================== SUPPLIER COMPARISON ====================
+// May full-month data (31 days) — verified from Zester
+const MAY_VENDORS_FULL = [
+  {name:'חמישה קצבים',    net:23590.50},
+  {name:'מאסטרפוד',       net:21476.68},
+  {name:'מילועוף',        net:19423.10},
+  {name:'מ.ר כלים',       net:15877.21},
+  {name:'י.שבי שיווק',    net:8191.42},
+  {name:'אחים כהן',       net:8543.39},
+  {name:'אהרון שיווק',    net:7502.55},
+  {name:'זטופאק לחם',     net:6078.96},
+  {name:'א. ביסקוטי',     net:3906.77},
+  {name:'חמים וטעים',     net:5082.20},
+  {name:'ג.י אשכול',      net:5919.34},
+  {name:'עונות ישראל',    net:4840.91},
+  {name:'א.מ.א קייטרינג', net:3588.00},
+  {name:'נטו מלינדה',     net:3576.37},
+  {name:'דיפלומט',        net:3444.40},
+  {name:'איתמר ואורן',    net:2985.00},
+  {name:'דים סאם',        net:2966.72},
+  {name:'מושיקו רזל',     net:2099.00},
+  {name:'מטעים גשור',     net:1872.00},
+];
+const MAY_DAYS = 31;
+const JUN_DAYS_TOTAL = 30;
+
+// June actual vendor data (1-17 June, from Zester)
+const JUN_VENDORS_17 = [
+  {name:'חמישה קצבים',    net:14139.65},
+  {name:'מאסטרפוד',       net:15162.47},
+  {name:'מילועוף',        net:10043.54},
+  {name:'מ.ר כלים',       net:14552.15},
+  {name:'י.שבי שיווק',    net:7179.00},
+  {name:'אחים כהן',       net:6255.62},
+  {name:'אהרון שיווק',    net:6350.24},
+  {name:'זטופאק לחם',     net:2796.00},
+  {name:'א. ביסקוטי',     net:3906.77},
+  {name:'חמים וטעים',     net:7019.45},
+  {name:'ג.י אשכול',      net:5919.34},
+  {name:'עונות ישראל',    net:4840.91},
+  {name:'א.מ.א קייטרינג', net:3588.00},
+  {name:'נטו מלינדה',     net:3576.37},
+  {name:'דיפלומט',        net:3444.40},
+  {name:'איתמר ואורן',    net:2985.00},
+  {name:'דים סאם',        net:2966.72},
+  {name:'מושיקו רזל',     net:2099.00},
+  {name:'מטעים גשור',     net:1872.00},
+];
+const JUN_COLLECTED_DAYS = 17; // updated to current
+
+function renderSupplierComparison() {
+  const el = document.getElementById('jun-sup-compare');
+  if (!el) return;
+
+  // Build lookup: may daily avg per supplier
+  const mayDaily = {};
+  MAY_VENDORS_FULL.forEach(v => { mayDaily[v.name] = v.net / MAY_DAYS; });
+
+  // Sort june vendors by amount desc
+  const sorted = [...JUN_VENDORS_17].sort((a,b) => b.net - a.net);
+
+  let html = '';
+
+  // Header
+  html += '<div class="sup-cmp-hdr">';
+  html += '<div>ספק</div>';
+  html += '<div style="text-align:center">מאי/יום</div>';
+  html += '<div style="text-align:center">יוני/יום</div>';
+  html += '<div style="text-align:center">שינוי</div>';
+  html += '</div>';
+
+  sorted.forEach(v => {
+    const jd = v.net / JUN_COLLECTED_DAYS;
+    const md = mayDaily[v.name] || 0;
+    const diff = md > 0 ? ((jd - md) / md * 100) : 0;
+    const diffStr = (diff >= 0 ? '+' : '') + diff.toFixed(0) + '%';
+
+    let rowClass = '';
+    let badgeClass = 'white';
+    if (diff >= 40) { rowClass = 'red-row'; badgeClass = 'red'; }
+    else if (diff >= 15) { rowClass = 'orange-row'; badgeClass = 'orange'; }
+    else if (diff <= -10) { rowClass = 'green-row'; badgeClass = 'green'; }
+
+    const icon = diff >= 40 ? '🔴' : diff >= 15 ? '🟠' : diff <= -10 ? '🟢' : '⚪';
+
+    html += '<div class="sup-cmp-row ' + rowClass + '">';
+    html += '<div class="sup-cmp-name">' + icon + ' ' + v.name + '</div>';
+    html += '<div class="sup-cmp-val muted">₪' + Math.round(md).toLocaleString('he-IL') + '</div>';
+    html += '<div class="sup-cmp-val">₪' + Math.round(jd).toLocaleString('he-IL') + '</div>';
+    html += '<div class="sup-cmp-badge ' + badgeClass + '">' + diffStr + '</div>';
+    html += '</div>';
+  });
+
+  // Legend
+  html += '<div class="sup-cmp-legend">';
+  html += '<span>🔴 מעל +40%</span>';
+  html += '<span>🟠 +15% עד +40%</span>';
+  html += '<span>🟢 ירידה</span>';
+  html += '<span>⚪ יציב</span>';
+  html += '<span style="margin-right:auto">מאי=' + MAY_DAYS + ' ימים | יוני=' + JUN_COLLECTED_DAYS + ' ימים</span>';
+  html += '</div>';
+
+  el.innerHTML = html;
+}
+
+
+function renderAll(){ renderMay(); renderJun(); renderSupplierComparison(); }
 
 function switchTab(t){
   activeTab = t;
