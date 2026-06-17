@@ -198,7 +198,7 @@ body.light .wolt-card { background:rgba(255,107,53,0.06); border-color:rgba(255,
       </div>
     </div>
     <div style="display:flex;gap:8px;align-items:center;">
-    <button class="sync-btn" id="theme-btn" onclick="toggleTheme()" style="background:#374151;">🌙 Dark</button>
+    <button class="sync-btn" id="theme-btn" onclick="toggleTheme()" style="background:#6d28d9;">☀️ מצב יום</button>
     <button class="sync-btn" onclick="triggerSync()">🔄 סנכרן</button>
   </div>
   </div>
@@ -829,29 +829,32 @@ document.getElementById('pw-input').addEventListener('keydown', e=>{ if(e.key===
 
 function toggleTheme(){
   const isLight = document.body.classList.toggle('light');
+  updateThemeBtn(isLight);
+  localStorage.setItem('einstein_theme', isLight ? 'light' : 'dark');
+}
+
+function updateThemeBtn(isLight){
   const btn = document.getElementById('theme-btn');
+  if(!btn) return;
   if(isLight){
-    btn.textContent = '🌙 Dark';
-    btn.style.background = '#6d28d9';
-    localStorage.setItem('einstein_theme','light');
-  } else {
-    btn.textContent = '☀️ Light';
+    btn.textContent = '🌙 מצב לילה';
     btn.style.background = '#374151';
-    localStorage.setItem('einstein_theme','dark');
+  } else {
+    btn.textContent = '☀️ מצב יום';
+    btn.style.background = '#6d28d9';
   }
 }
 
 // Restore theme on load
-(function(){
+window.addEventListener('DOMContentLoaded', function(){
   const t = localStorage.getItem('einstein_theme');
   if(t === 'light'){
     document.body.classList.add('light');
-    window.addEventListener('DOMContentLoaded', function(){
-      const btn = document.getElementById('theme-btn');
-      if(btn){ btn.textContent='🌙 Dark'; btn.style.background='#6d28d9'; }
-    });
+    updateThemeBtn(true);
+  } else {
+    updateThemeBtn(false);
   }
-})();
+});
 
 </script>
 </body>
