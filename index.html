@@ -625,6 +625,7 @@ async function loadFromRosa(){
   } catch(e){}
 
   renderAll();
+  renderSupplierComparison();
 }
 
 async function triggerSync(){
@@ -640,6 +641,7 @@ function checkPW(){
     document.getElementById('paywall').style.display='none';
     document.getElementById('app').style.display='block';
     renderAll();
+    renderSupplierComparison();
     loadFromRosa();
   } else {
     document.getElementById('pw-err').textContent='קוד שגוי, נסה שוב';
